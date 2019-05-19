@@ -243,6 +243,12 @@ For this tutorial, the reader is expected to have an understanding of Python and
 %\end{figure}
 
 \section*{Day 1: Of Numerical Integration and Python}
+In this tutorial we are interested in solving ordinary differential equations of the form,
+\begin{equation}
+\frac{dx}{dt} = f(x, t)
+\label{eq:ode}
+\end{equation}
+where, $x$ is an $N-$dimensional vector and $t$ typically stands for time. The function $f(x,t)$ may be a complex nonlinear function of $x$. In addition to specifying the form of the differential equation, one must also specify the value of $x$ at a particular time point. Say, $x(t=0)=x_{0}$. It is often not possible to derive a closed form solution for~\ref{eq:ode}. Therefore numerical methods to solve these equations are of great importance. In fact, once Hodgkin and Huxley had settled on the differential equations describing the dynamics of action potential generation and propagation in the giant axon of the squid, Andrew Huxley solved these equations numerically using a hand operated Bunsviga mechanical calculator. The calculation took nearly three weeks to complete. Our goal is to solve systems of ordinary differential equations of the form~\ref{eq:ode}.
 
 This section begins with what Numerical Integration is and how we can use it to solve differential equations given the initial condition in Python.
 
