@@ -248,16 +248,19 @@ In this tutorial we are interested in solving ordinary differential equations of
 \frac{dx}{dt} = f(x, t)
 \label{eq:ode}
 \end{equation}
-where, $x$ is an $N-$dimensional vector and $t$ typically stands for time. The function $f(x,t)$ may be a complex nonlinear function of $x$. In addition to specifying the form of the differential equation, one must also specify the value of $x$ at a particular time point. Say, $x(t=0)=x_{0}$. It is often not possible to derive a closed form solution for~\ref{eq:ode}. Therefore numerical methods to solve these equations are of great importance. In fact, once Hodgkin and Huxley had settled on the differential equations describing the dynamics of action potential generation and propagation in the giant axon of the squid, Andrew Huxley solved these equations numerically using a hand operated Bunsviga mechanical calculator. The calculation took nearly three weeks to complete. Our goal is to solve systems of ordinary differential equations of the form~\ref{eq:ode}.
+where, $x$ is an $N-$dimensional vector and $t$ typically stands for time. The function $f(x,t)$ may be a complex nonlinear function of $x$. In addition to specifying the form of the differential equation, one must also specify the value of $x$ at a particular time point. Say, $x(t=0)=x_{0}$. It is often not possible to derive a closed form solution for~\ref{eq:ode}. Therefore numerical methods to solve these equations are of great importance. One such example at the core of our tutorial are the Hodgkin-Huxley equations describing the dynamics of action potential generation and propagation in the giant axon of the squid. Alan Hodgkin and Andrew Huxley arrived at these equations after a series of clever experiments that tested the limits of experimental technology available at the time. It also tested the limits of computational tools available. The form of the differential equations they arrived at contained nonlinearities that made it impossible to solve analytically. In order to compute action potentials, Huxley numerically intergrated the equations using a hand operated Bunsviga mechanical calculator. The calculation took nearly three weeks to complete. 
 
-This section begins with what Numerical Integration is and how we can use it to solve differential equations given the initial condition in Python.
-
-\subsection*{What is Numerical Integration?}
-
-From the point of view of a theoretician, the ideal form of the solution to a differential equation given the initial conditions, i.e. an initial value problem (IVP), would be a formula for the solution function. But sometimes obtaining a formulaic solution is not always easy, and in many cases is absolutely impossible. So, what do we do when faced with a differential equation that we cannot solve? If you are only looking for long term behavior of a solution you can always sketch a direction field. [] This can be done without too much difficulty for some fairly complex differential equations that we can’t solve to get exact solutions. But, what if we need to determine how a specific solution behaves, including some values that the solution will take? In that case, we have to rely on numerical methods for solving the IVP such as Euler's method [] or the Runge-Kutta Methods []. 
+Here we discuss and code a class of numerical methods used to solve initial value problems~\ref{eq:ode} iteratively. 
 
 \subsection*{Euler's Method for Numerical Integration}
+The simplest method that one can use to solve~\ref{eq:ode} is the Euler's method. Here we start from $x(t=0)=x_{0}$ and compute the solution at subsequent time points ($\epsilon,2\epsilon,3\epsilon \dots $) iteratively. Each step of the computation is done by the same formula that can be derived by truncating a Taylor approximation of the solution after the first term. That is, the solution at time $t+\epsilon$ is given by,
 
+\begin{equation}
+x(t+\epsilon) = x(t) + \epsilon\frac{dx}{dt})+\epsilon^2x(\frac{d^2x}{dt^2})
+\end{equation}
+
+These methods are iterative in that we start from a particular value of the solution (the initial condition, $x(t=0)=x_{0}$) and compute an approximate value of the solution at subesquent steps.
+Euler's method is the simplest 
 Euler's Method is used to generate a numerical solution to an initial value problem of the form:
 
 \begin{eqnarray}\frac{dx}{dt} = f(x, t)\end{eqnarray}
