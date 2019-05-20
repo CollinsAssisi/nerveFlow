@@ -253,11 +253,12 @@ where, $x$ is an $N-$dimensional vector and $t$ typically stands for time. The f
 Here we discuss and code a class of numerical methods used to solve initial value problems~\ref{eq:ode} iteratively. 
 
 \subsection*{Euler's Method for Numerical Integration}
-The simplest method that one can use to solve~\ref{eq:ode} is the Euler's method. Here we start from $x(t=0)=x_{0}$ and compute the solution at subsequent time points ($\epsilon,2\epsilon,3\epsilon \dots $) iteratively. Each step of the computation is done by the same formula that can be derived by truncating a Taylor approximation of the solution after the first term. That is, the solution at time $t+\epsilon$ is given by,
+The simplest method that one can use to solve~\ref{eq:ode} is the Euler's method. Here we start from $x(t=t_{0})=x_{0}$ and compute the solution at subsequent time points ($t_{0}+\epsilon,t_{0}+2\epsilon,t_{0}+3\epsilon \dots $) iteratively. Each step of the computation is done using the same formula that can be derived by truncating a Taylor approximation of the solution after the first term. That is, the solution at time $t+\epsilon$ is given by,
 
 \begin{equation}
-x(t+\epsilon) = x(t) + \epsilon\frac{dx}{dt})+\epsilon^2x(\frac{d^2x}{dt^2})
+x(t+\epsilon) = x_{0} + \epsilon\frac{dx}{dt} + \mathcal{O}(\epsilon^2)
 \end{equation}
+The higher order terms $\mathcal{O}(\epsilon^2)$ are ignored in this approximation. A geometric interpretation of the Euler's method is shown in figure ??.
 
 These methods are iterative in that we start from a particular value of the solution (the initial condition, $x(t=0)=x_{0}$) and compute an approximate value of the solution at subesquent steps.
 Euler's method is the simplest 
