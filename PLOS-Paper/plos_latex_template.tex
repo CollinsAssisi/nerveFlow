@@ -723,23 +723,11 @@ rate = np.bitwise_and(state[:-1,:20]<0,state[1:,:20]>0).sum(axis=0)/0.2
 \end{minted}
 
 \section*{Day 4: Neurons and Networks}
-We discuss the realistic modelling of synaptic interactions for networks of Hogkin Huxley Neurons and how to implement synapses in TensorFlow.
-
-\subsection*{How do we model Synapses?}
-
-A synapse is defined between two neurons. There can be multiple synapses between two neurons (even of the same type) but here we will consider only single synapses between two neuron. So, there can be atmost $n^2$ synapses of the same type between $n$ different neurons. Each synapse will have their own state variables the dynamics of which can be defined using differential equations. 
-
-For most networks, not all neurons will be connected by all types of synapses. The network of neurons with have a certain connectivity that can be represented as a adjacency matrix in the language of graphs. Each type of synapse will have its own connectivity/adjacency matrix.
-
-\subsubsection*{Types of Synapses}
-
-There are two major categories of synapses: Exitatory and Inhibitory Synapses.
-
-Here we will focus on implementing one of each category of synapses, Excitatory and Inhibitory. 
+In this section we simulate a network of neurons interacting via synapses. Each synapse is defined by its own set of state variables and differential equations governing their temporal evolution. There are different kinds of synapses - electrical and chemical synapse. Electrical synapses are essentially physical conduits that allow the flow of ions across connected neurons. Chemical synapses are more common in the brain and are more complex than electrical synapses. When an action potential arrives at the axon terminal, it leads to the opening of voltage-gated calcium channels. The incoming calcium triggers neurotransmitter filled vesciles to fuse with the axon terminal membrane and release their cargo into the synaptic cleft. The neurotransmitters diffuse across the cleft and open (or close) ion channels on the post-synaptic neuron. This can cause a depolarization (increase in potential across the post-synaptic neuron's membrane) that makes it easier for the neuron to spike or it can inhibit the neuron and have the opposite effect. In some cases these effects are direct in that a neurotransmitter binds to a receptor in the post-synaptic site and causes deviations in membrane potential. The effect of a synapse can also be indirect such that neurotransmitters invoke a second messenger cascade that eventually leads to the opening or closing of ion channels in the post-synaptic neuron. Here we model excitatory and inhibitory chemical synapses.The network of interactions between neurons will be described by a connectivity matrix. Each type of synapse will have its own connectivity matrix.
 
 \subsubsection*{Modelling Synapses}
 
-The current that passes through a synaptic channel depends on the difference between its reversal potential ($E_{syn}$) and the actual value of the membrane potential ($u$), and is $I_{syn}(t)=g_{syn}(t)(u(t)−E_{syn})$. We can describe the synaptic conductance $g_{syn}(t)=g_{max}[O](t)$, by its maximal conductance $g_{max}$ and a gating variable $[O]$, where $[O](𝑡)$ is the fraction of open synaptic channels. Channels open when a neurotransmitter binds to the synapse which is a function of the presynaptic activation $[T]$.
+The current ($I_{syn}$)that passes through a synaptic channel depends on the difference between its reversal potential ($E_{syn}$) and the actual value of the membrane potential ($u$), and is $I_{syn}(t)=g_{syn}(t)(u(t)−E_{syn})$. We can describe the synaptic conductance $g_{syn}(t)=g_{max}[O](t)$, by its maximal conductance $g_{max}$ and a gating variable $[O]$, where $[O](𝑡)$ is the fraction of open synaptic channels. Channels open when a neurotransmitter binds to the synapse which is a function of the presynaptic activation $[T]$.
 
 \begin{eqnarray}\label{d4_1}\frac{d[O]}{dt}=\alpha[T](1−[O])−\beta[O]\end{eqnarray}
 
