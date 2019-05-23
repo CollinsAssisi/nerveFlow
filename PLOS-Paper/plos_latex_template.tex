@@ -109,6 +109,9 @@
 % code-listing package
 \usepackage{minted}
 
+%chemical reaction package
+%\usepackage{mhchem}
+
 % create "+" rule type for thick vertical lines
 \newcolumntype{+}{!{\vrule width 2pt}}
 
@@ -181,51 +184,46 @@
 % Title must be 250 characters or less.
 \begin{flushleft}
 {\Large
-\textbf\newline{Parallelised Scalable Simulations of Biological Neural Networks using TensorFlow: A Beginners’ Guide} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
-}
-\newline
+\textbf\newline{Parallel scalable simulations of biological neural networks using TensorFlow: A beginner's guide} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+}\\
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
-\\
-Saptarshi Soham Mohanta\textsuperscript{1},
-Collins Assisi\textsuperscript{1},
-with Theoretical Neuroscience Group\textsuperscript{\textpilcrow}.
-\\
+Saptarshi Soham Mohanta and Collins Assisi
 \bigskip
-\textbf{1} Indian Institute of Science Education and Research, Pune, Maharashtra, India
 \\
-\bigskip
-
-
-% Current address notes
-\textcurrency Current Address: Biology Department, Indian Institute of Science Education and Research, Pune, Maharashtra, India 
-
-% Group/Consortium Author Note
-\textpilcrow Membership list can be found in the Acknowledgments section.
-
+Indian Institute of Science Education and Research, Pune, Maharashtra, India\\
 % Use the asterisk to denote corresponding authorship and provide email address in note below.
+\bigskip
+*saptarshi.sohammohanta@students.iiserpune.ac.in \\
 * collins@iiserpune.ac.in
 
 \end{flushleft}
 % Please keep the abstract below 300 words
 \section*{Abstract}
-The dynamics of neurons and their networks have been studied extensively by modelling them as collections of differential equations, and the power of these mathematical tools are well recognised. Many tools and packages exist that allow the simulation of systems of neurons using these differential equations. However, there is a barrier of entry in terms of developing flexible general purpose simulations that are platform independent and support hardware acceleration on modern computing architectures such as GPUs/TPUs and Distributed Platforms. TensorFlow is a Python-based open-source package initially designed for machine learning algorithms, but it presents a scalable environment for a variety of computation including solving differential equations using iterative algorithms from numerical analysis such as Runge-Kutta methods. There are two significant benefits of such an implementation: high readability and scalability across a variety of computational devices. We explore the process of implementing a scalable simulation of a system of neurons based on Hodgkin-Huxley-like neuron equations using TensorFlow. We also discuss the limitations of such implementation and approaches to deal with them. 
-
+Neuronal networks are often modelled as systems of coupled, nonlinear, ordinary or
+partial differential equations. The number of differential equations used to model a
+network increases with the size of the network and the level of detail used to model
+individual neurons and synapses. As one scales up the size of the simulation it becomes important to use powerful computing platforms. Many tools exist that solve these equations numerically. However, these tools are often platform-specific. There is a high barrier of entry to developing flexible general purpose code that is platform independent and supports hardware acceleration on modern computing architectures such as GPUs/TPUs and Distributed Platforms. TensorFlow is a Python-based open-source package initially designed for machine learning algorithms, but it presents a scalable environment for a variety of computations including solving differential equations using iterative algorithms such as Runge-Kutta methods. In this article, organized as a series of tutorials, we demonstrate how to harness the power of TensorFlow’s data-flow programming paradigm to solve differential equations. Our tutorial is a simple exposition of numerical methods to solve ordinary differential equations using Python and TensorFlow. It consists of a series of Python notebooks that accompany this paper. Over the course of five sessions, we lead novice programmers from integrating simple 1-dimensional differential equations using Python, to solving a large system (1000’s of differential equations) of coupled conductance-based neurons using a highly parallelised and scalable framework that uses Python and TensorFlow. Embedded in the tutorial is a physiologically realistic implementation of a network in the insect olfactory system. This system, consisting of multiple neuron and synapse types, can serve as a template to simulate other networks.
 
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
 \section*{Author summary}
-In the form of a 7-day tutorial, the reader is introduced to the mathematical modelling of neuronal networks based on the Hodgkin-Huxley Differential Equations and is instructed on developing highly parallelised but easily readable code for numerical methods such as Euler's Method and Runge-Kutta Methods to solve differential equations in Python and use them to simulate neuronal dynamics. To develop scalable code, Google's open-source package TensorFlow is introduced, and the reader is instructed in developing simulations using this package and handling the few limitations that come with this implementation. The reader is also introduced to coding structures that maximise the parallelizability of the simulation. Finally, the coding paradigm that was developed is used to simulate a model of Locus Antennal Lobe described in previous literature, and its efficacy is analysed. 
+In the form of a 5-day tutorial, the reader is introduced to the mathematical modelling of neuronal networks based on the Hodgkin-Huxley Differential Equations and is instructed on developing highly parallelised but easily readable code for numerical methods such as Euler's Method and Runge-Kutta Methods to solve differential equations in Python and use them to simulate neuronal dynamics. To develop scalable code, Google's open-source package TensorFlow is introduced, and the reader is instructed in developing simulations using this package and handling the few limitations that come with this implementation. The reader is also introduced to coding structures that maximise the parallelizability of the simulation. Finally, the coding paradigm that was developed is used to simulate a model of Locus Antennal Lobe described in previous literature, and its efficacy is analysed. 
 
 \linenumbers
 
 % Use "Eq" instead of "Equation" for equation citations.
-\section*{Motivation}
-The processing of information by the nervous system spans across space and time, and mathematical modelling of these dynamics have found to be an essential tool. These models have been used extensively to study the dynamics and mechanisms of information processing at both the individual neuron level~\cite{} and the system of neurons level.~\cite{} These models generally utilise systems of simultaneous ordinary differential equations (ODEs) which are solved as initial value problems using well-studied methods from numerical analysis such as Euler's Method and Runge Kutta methods.~\cite{} From a detailed study of the mechanism of action of the neurons, ion channels, neurotransmitters or neuromodulators and their dynamics in different models,~\cite{} equations have been found that describe the behaviour of neurons and synapse. By forming interconnected systems of these individual groups of differential equations, the overall dynamics and behaviour of networks can be studied through deterministic or stochastic simulations which can be easily perturbed unlike the case for in vivo experiments.
+\section*{Introduction}
+Information processing in the nervous system spans a number of spatial and temporal scales. Millisecond fluctuations in ionic concentration at a synapse $10^-$ can cascade into long term (hours to days) changes in the behavior of the organism. Capturing the temporal scales and the details of the dynamics of the brain is a colossal computational endeavour. While, the dynamics of single and small networks of neurons can easily be simulated using a desktop computer and high level, readable, programing languages like Python, large networks of conductance based neurons are often simulated on clusters of CPUs. More recently, graphical processing units (GPUs) have become increasingly available due to lower (though still prohibitive) costs and from cloud services by Google Cloud and Amazon AWS among others. However, writing code for each of these platforms is non trivial and requires a considerable time investment to master different software tools. For example, implementing parallelism in multiple core shared memory architectures is often achieved using Open Multi-Processing (OpenMP) with C or C++. Message Passing Interface (MPI) libraries are used to implement code that computes over high performance computing clusters. Compute Unified Device Architecture (CUDA) allows users to run code on NVIDIA's GPUs. However, code written for one platform cannot be used on other platforms. This poses a high barrier of entry for computational neuroscientists conversant with a high-level programing language, attempting to test simulations on different platforms. 
 
-A significant issue with such simulations is computational complexity. As the number of neurons increase, the number of possible synaptic connections increases quadratically. That is, for a system of $n$ neurons there can be at most $n^2$ different synapses of one type, each with its own set of equations. Thus, simulations can take very long times for large values of $n$. A solution to this problem is to implement some form of parallelisation in the ODE solver and the system of equations itself. One of the simplest methods of parallelizable computation is in the form of matrix algebra which can be accelerated using libraries such as BLAS which can only be used for accelerating CPU based computations. Similarly, CUDA is available for speeding up computations on Nvidia-based GPUs and TPUs.~\cite{} However, there is a barrier of entry to using low-level packages like CUDA for the general user as it sometimes requires an in-depth understanding of the architecture, particularly for troubleshooting.
+This is where TensorFlow, a Python library that was originally written to cater to machine learning applications~\cite{}, comes in handy. TensorFlow is highly scalable. Code written in TensorFlow works seamlessly on single cores, multi-core shared memory processors, high-performance computer clusters, GPUs and Tensor processing units (TPUs - a propreitary chip designed by Google to with TensorFlow). We found (as others have (ref??)), that TensorFlow functions can be used to implement numerical methods to solve ODEs. Doing so gave us a significant speed-up even on a single desktop with a multicore processor compared to similar Python code that did not use TensorFlow functions and operated on a single core.
+\begin{figure}
+\includegraphics[scale=0.7]{Figures/Bench.pdf} 
+\caption{Comparison of Python and Tensorflow on an 8 core, 2.1GHz desktop with 2 Intel Xeon E5-2620 processors}
+\label{fig:comparison}
+\end{figure}
 
-This is where TensorFlow (an open-source Google product)~\cite{} gives us a massive edge. TensorFlow allows us much greater scalability and is way more flexible in terms of ease of implementation for specialised hardware. With minimal changes in the implementation, the code can be executed on a wide variety of heterogeneous and distributed systems ranging from mobile devices to clusters and specialised computing devices such as GPU and TPU cards. The modern advances in GPU/TPU design allow us to access even higher degrees of parallelisation. It is now even possible to have hundred of TeraFLOPS of computing power in a single small computing device. With TensorFlow, we can access these resources without even requiring an in-depth understanding of its architecture and technical knowledge of specific low-level packages like CUDA.
+
 
 %~\cite{bib1}
 
@@ -723,28 +721,35 @@ rate = np.bitwise_and(state[:-1,:20]<0,state[1:,:20]>0).sum(axis=0)/0.2
 \end{minted}
 
 \section*{Day 4: Neurons and Networks}
-In this section we simulate a network of neurons interacting via synapses. Each synapse is defined by its own set of state variables and differential equations governing their temporal evolution. There are different kinds of synapses - electrical and chemical synapse. Electrical synapses are essentially physical conduits that allow the flow of ions across connected neurons. Chemical synapses are more common in the brain and are more complex than electrical synapses. When an action potential arrives at the axon terminal, it leads to the opening of voltage-gated calcium channels. The incoming calcium triggers neurotransmitter filled vesciles to fuse with the axon terminal membrane and release their cargo into the synaptic cleft. The neurotransmitters diffuse across the cleft and open (or close) ion channels on the post-synaptic neuron. This can cause a depolarization (increase in potential across the post-synaptic neuron's membrane) that makes it easier for the neuron to spike or it can inhibit the neuron and have the opposite effect. In some cases these effects are direct in that a neurotransmitter binds to a receptor in the post-synaptic site and causes deviations in membrane potential. The effect of a synapse can also be indirect such that neurotransmitters invoke a second messenger cascade that eventually leads to the opening or closing of ion channels in the post-synaptic neuron. Here we model excitatory and inhibitory chemical synapses.The network of interactions between neurons will be described by a connectivity matrix. Each type of synapse will have its own connectivity matrix.
+In this section we simulate a network of neurons interacting via synapses. Each synapse is defined by its own set of state variables and differential equations governing their temporal evolution. There are different kinds of synapses - electrical and chemical synapses. Electrical synapses are essentially physical conduits that allow the flow of ions across connected neurons. Chemical synapses are more common in the brain and are more complex than electrical synapses. When an action potential arrives at the axon terminal, it leads to the opening of voltage-gated calcium channels. The incoming calcium triggers neurotransmitter filled vesciles to fuse with the axon terminal membrane and release their cargo into the synaptic cleft. The neurotransmitters diffuse across the cleft and open (or close) ion channels on the post-synaptic neuron. This can cause a depolarization (increase in potential across the post-synaptic neuron's membrane) that makes it easier for the neuron to spike or it can inhibit the neuron and have the opposite effect. In some cases these effects are fast and direct \textemdash a neurotransmitter binds to a receptor in the post-synaptic site that causes an influx or eflux of ions and leads to a change in the membrane potential. The effect of a synapse can also be indirect such that neurotransmitters invoke a second messenger cascade that eventually leads to the opening or closing of ion channels in the post-synaptic neuron. Here we model fast excitatory and inhibitory chemical synapses.The network of interactions between neurons will be described by a connectivity matrix. Different connectivity matrices describe the interactions due to different types of synapses. 
 
 \subsubsection*{Modelling Synapses}
 
-The current ($I_{syn}$)that passes through a synaptic channel depends on the difference between its reversal potential ($E_{syn}$) and the actual value of the membrane potential ($u$), and is $I_{syn}(t)=g_{syn}(t)(u(t)−E_{syn})$. We can describe the synaptic conductance $g_{syn}(t)=g_{max}[O](t)$, by its maximal conductance $g_{max}$ and a gating variable $[O]$, where $[O](𝑡)$ is the fraction of open synaptic channels. Channels open when a neurotransmitter binds to the synapse which is a function of the presynaptic activation $[T]$.
-
+The synaptic current ($I_{syn}$) depends on the difference between its reversal potential ($E_{syn}$) and the actual value of the membrane potential ($u$). The synaptic current due to neurotransmitter release into the synaptic cleft following an action potential is given by,
+\begin{equation}
+I_{syn}(t)=g_{syn}(t)(u(t)−E_{syn})
+\label{eq:syncurr}
+\end{equation}
+When the transmitter binds to postsynaptic receptors it causes a transient change in the conductance $g_syn$. To capture the dynamics of $g_syn$, one models the system using a simple kinetic model where the receptors can be either in an open or a closed state. The transition between the states is proportional to the concentration of the neurotransmitter $[T]$ in the cleft. 
+\begin{equation}
+\mathrm{C}\underset{\beta}{\stackrel{\alpha[T]}{\rightleftharpoons}} \mathrm{O}
+\end{equation}
+This may be rewritten in the form of a differential equation.
 \begin{eqnarray}\label{d4_1}\frac{d[O]}{dt}=\alpha[T](1−[O])−\beta[O]\end{eqnarray}
+We can now describe the synaptic conductance $g_{syn}(t)=g_{max}[O](t)$, in terms of the maximal conductance $g_{max}$ and a gating variable $[O]$, where $[O](𝑡)$ is the fraction of open synaptic channels. $\alpha$ is the binding constant, $\beta$ the unbinding constant and $(1−[O])$ the fraction of closed channels where the neurotransmitter can bind. The functional form of T depends on the type and nature of the synapse.
+For cholinergic excitatory synapses, $[T]$ is given by,
+\begin{eqnarray}
+\label{d4_2}
+[T]_{ach} = A\ \Theta(t_{max}+t_{fire}+t_{delay}-t)\ \Theta(t-t_{fire}-t_{delay})
+\end{eqnarray}
+where, $\Theta (x)$ is the Heaveside step function, $t_{fire}$ is the time of the last presynaptic spike, $t_{delay}$ is the time delay from the time of the last spike to its effect on the postsynaptic neuron and $t_{max}$ is the duration after the spike during which the transmitter remains in the synaptic cleft.
+For Fast GABAergic inhibitory synapses, we used the following equation,
+\begin{eqnarray}\label{d4_3}[T]_{gaba} = \frac{1}{1+e^{-\frac{V(t-t_{fire}-t_{delay})-V_0}{\sigma}}}\end{eqnarray}
 
-where $\alpha$ is the binding constant, $\beta$ the unbinding constant and $(1−[O])$ the fraction of closed channels where binding of neurotransmitter can occur. The functional form of T depends on the type and nature of the synapse.
-	
+Note that in order to solve the equation~\ref{d4_1}, we need to determine the time when the presynaptic neuron fired ($t_{fire}$). To account for these synaptic interactions between neurons we need to modify the RK4 integrator developed to simulate multiple independent Hodgkin-Huxley neurons. 
 
-\subsubsection*{Acetylcholine Synapses (Excitatory)}
-
-\begin{eqnarray}\label{d4_2}[T]_{ach} = A\ \Theta(t_{max}+t_{fire}+t_{delay}-t)\ \Theta(t-t_{fire}-t_{delay})\end{eqnarray}
-
-\subsubsection*{GABAa Synapses (Inhibitory)}
-
-\begin{eqnarray}\label{d4_3}[T]_{gaba} = \frac{1}{1+e^{-\frac{V(t)-V_0}{\sigma}}}\end{eqnarray}
-
-\subsection*{Iterating over conditionals in TensorFlow}
-
-How would you solve a problem where you have to choose between two options based on the condition provided in a list/array using TensorFlow. Say, you have a array of 10 random variables (say x) between 0 and 1, and you want the output of your code to be 10, if the random variable is greater than 0.5, but -10 when it is not. To perform choices based on the conditions given in a boolean list/array, we can use the TensorFlow function tf.where(). tf.where(cond,a,b) chooses elements from a/b based on conditional array/list cond. Essentially it performs masking between a and b.
+\subsection*{Redesigning the Generalized TensorFlow Integrator}
+In this section we modify the integrator that we coded on Day 2 to account for interactions between neurons. This will require an additional variable that stores the time elapsed from the last presynaptic spike to calculate the  equations~\ref{d4_2},~\ref{d4_3}. In the modified code we will use the TensorFlow function \texttt{tf.where()} to efficiently assign the indices of neurons that have spiked and those that have not at each time point. To understand the usage and function of \texttt{tf.where()}, consider the following example. Say, you have a array \texttt{x} of 10 random numbers between 0 and 1. You want the output of the code to be another array of the same size as \texttt{x} such that the elements of the array are either -10 or 10 depending on whether the corresponding element in \texttt{x} is less or greater than 0.5. The function  \texttt{tf.where(cond,a,b)} outputs an array with elements from \texttt{a} if the condition \texttt{cond} is \texttt{True} and from \texttt{b} if \texttt{cond} is \texttt{False}. See the example code below.
 
 \begin{minted}[linenos]{python}
 # create the Tensor with the random variables
@@ -762,20 +767,17 @@ with tf.Session() as sess:
 # selection_out = [-10. -10.  10. -10. -10.  10.  10.  10. -10. -10.]
 \end{minted}
 
-\subsection*{Recalling and Redesigning the Generalized TensorFlow Integrator}
-Recall the RK4 based numerical integrator we had created on day 2. You might have noticed that there is an additional dynamical state variable required for the implementation of synapses which is cannot be trivially changed by a memoryless differential equation. Here, we use the word memoryless because till now, all our dynamical variables have only depended on the value immediately before. The dynamical state variable in question is the time of last firing, lets call it fire\_t. 
+In order to determine whether a particular neuron fired, we introduce a new variable \texttt{fire\_t} that stores the time of the last spike for each neuron. 
 
-One limitation of using TensorFlow in this implentation is that, when we are calculating the change in the dynamical state variable, we only have access to the values for variables immediately before unless we explicity save it as a different variable. Note that if we want to check if a neuron has "fired", we need to know the value of the voltage before and after the updation to check if it crossed the threshold. This means we have to change our implementation of the integrator to be able to update the varaible fire\_t
-
-We do this as follows:
+We modify the code as follows:
 \begin{enumerate}
-\item The Integrator needs to know two more properties, the number of neurons ($n$) and firing threshold ($threshold$) for each of these neurons. We provide this information as inputs to the Integrator Class itself as arguments.
-\item Our state vector will now have an additional $n$ many variables representing the firing time that will not undergo the standard differential updation but be updated by a single bit memory method.
-\item Inside our Integrator, we have access to the initial values of the state variable and the change in the state variable. We use this to check if the voltages have crossed the firing threshold. For this, we need to define a convection for the state vector, we will store the voltage of the neurons in the first $n$ elements and the fire times fire\_t in the last $n$ elements.
-\item The differential update function ie. step\_func will take all variables but not update the last n values ie. $\frac{d\ fire\_t}{dt}=0$, the updation will be performed by the scan function itself after the $\Delta y$ has been calculated. It will check for every neuron if the firing threshold of that neuron lies between $V$ and $V + \Delta V$ and update the variable fire\_t of the appropriate neurons with the current time.
+\item The Integrator class that we defined earlier now requires two more properties, namely, the number of neurons (\texttt{n}) and firing threshold (\texttt{F\_b}) of each of these neurons. We provide these inputs as arguments to the Integrator class.
+\item The state vector will now have an additional \texttt{n} variables representing the firing times. These will not be updated by the step function (\texttt{\_step\_func}).
+\item Inside the Integrator class, we have access to the values of the state variable and the change in the state variable since the last iteration. We use this to check if the voltages have crossed the firing threshold. The convention followed in this code is, the first \texttt{n} elements of the state vector are the membrane voltages while the last \texttt{n} elements are the time from the last spike for each of the neurons.
+\item The differential update function ie. step\_func takes except the last \texttt{n} values of the state variable and updates according to the differential equations specified in \texttt{func}. The last \texttt{n} variables are updated separately in \texttt{scan\_func}. It checks if any neuron has crossed its firing threshold and updates the variable \texttt{fire\_t} of the appropriate neurons with the current time.
 \end{enumerate}
 
-To implement this, we need to change the integrate function and the integration caller.
+The modifications to the RK4 code implemented earlier is shown below,
 
 \begin{minted}[linenos]{python}
 

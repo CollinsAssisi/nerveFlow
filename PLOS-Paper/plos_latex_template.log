@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.6.24)  22 MAY 2019 17:49
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.6.24)  23 MAY 2019 21:56
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -568,30 +568,31 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 )))
-No file plos_latex_template.aux.
+(./plos_latex_template.aux)
 \openout1 = `plos_latex_template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 178.
-LaTeX Font Info:    ... okay on input line 178.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 178.
-LaTeX Font Info:    ... okay on input line 178.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 178.
-LaTeX Font Info:    ... okay on input line 178.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 178.
-LaTeX Font Info:    ... okay on input line 178.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 178.
-LaTeX Font Info:    ... okay on input line 178.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 178.
-LaTeX Font Info:    ... okay on input line 178.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 178.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 178.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 181.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 181.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 178.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 178.
-LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -631,14 +632,16 @@ LaTeX Font Info:    ... okay on input line 178.
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
 \AtBeginShipoutBox=\box33
-Package hyperref Info: Link coloring OFF on input line 178.
-LaTeX Info: Redefining \ref on input line 178.
-LaTeX Info: Redefining \pageref on input line 178.
-LaTeX Info: Redefining \nameref on input line 178.
+Package hyperref Info: Link coloring OFF on input line 181.
+LaTeX Info: Redefining \ref on input line 181.
+LaTeX Info: Redefining \pageref on input line 181.
+LaTeX Info: Redefining \nameref on input line 181.
+
+(./plos_latex_template.out) (./plos_latex_template.out)
 \@outlinefile=\write5
 \openout5 = `plos_latex_template.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 178.
+LaTeX Info: Redefining \microtypecontext on input line 181.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -678,12 +681,14 @@ Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             or
 (lastpage)             http://www.ctan.org/tex-archive/ 
 (lastpage)             install/macros/latex/contrib/pageslts.tds.zip
-(lastpage)             ! on input line 178.
+(lastpage)             ! on input line 181.
 
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2012/04/20 UCS: Unicode data U+2000..U+20FF
-)
-LaTeX Font Info:    Try loading font information for U+msa on input line 189.
+) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Try loading font information for U+msa on input line 217.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
@@ -691,7 +696,7 @@ File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 189.
+LaTeX Font Info:    Try loading font information for U+msb on input line 217.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
@@ -699,51 +704,29 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
+<Figures/Bench.pdf, id=16, 382.42876pt x 350.91382pt>
+File: Figures/Bench.pdf Graphic file (type pdf)
+ <use Figures/Bench.pdf>
+Package pdftex.def Info: Figures/Bench.pdf used on input line 221.
+(pdftex.def)             Requested size: 267.69829pt x 245.638pt.
 
-LaTeX Warning: Reference `LastPage' on page 1 undefined on input line 225.
-
-[1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Reference `eq:ode' on page 2 undefined on input line 251.
-
-
-LaTeX Warning: Reference `LastPage' on page 2 undefined on input line 252.
-
-[2]
-
-LaTeX Warning: Reference `eq:ode' on page 3 undefined on input line 256.
-
-
-LaTeX Warning: Reference `eq:ode' on page 3 undefined on input line 256.
-
-<Figures/fig1.pdf, id=28, 845.04686pt x 597.50786pt>
+[2] [3 <./Figures/Bench.pdf>]
+<Figures/fig1.pdf, id=75, 845.04686pt x 597.50786pt>
 File: Figures/fig1.pdf Graphic file (type pdf)
  <use Figures/fig1.pdf>
 Package pdftex.def Info: Figures/fig1.pdf used on input line 264.
 (pdftex.def)             Requested size: 338.01276pt x 238.9989pt.
-
-
-LaTeX Warning: Reference `fig:euler' on page 3 undefined on input line 269.
-
-
-LaTeX Warning: Reference `eq:euler' on page 3 undefined on input line 269.
-
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
+
 (./plos_latex_template.out.pyg
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 2.
-
-
-LaTeX Warning: Reference `LastPage' on page 3 undefined on input line 5.
-
-[3])
+ [4 <./Figures/fig1.pdf>])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
@@ -752,61 +735,43 @@ runsystem(rm plos_latex_template.pyg)...executed.
 
 pdfTeX warning: pdflatex (file ./Figures/fig2.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
-<Figures/fig2.pdf, id=38, 433.62pt x 289.08pt>
+<Figures/fig2.pdf, id=104, 433.62pt x 289.08pt>
 File: Figures/fig2.pdf Graphic file (type pdf)
  <use Figures/fig2.pdf>
 Package pdftex.def Info: Figures/fig2.pdf used on input line 289.
 (pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
-
-
-LaTeX Warning: Reference `fig:eulerError' on page 4 undefined on input line 294
-.
-
-
-LaTeX Warning: Reference `LastPage' on page 4 undefined on input line 305.
-
-[4 <./Figures/fig1.pdf>]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
- (./plos_latex_template.out.pyg)
+
+(./plos_latex_template.out.pyg [5 <./Figures/fig2.pdf>])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
-
-
-LaTeX Warning: Reference `LastPage' on page 5 undefined on input line 329.
-
-[5 <./Figures/fig2.pdf>]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
- (./plos_latex_template.out.pyg)
+
+(./plos_latex_template.out.pyg)
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
-
-<Figures/fig4.pdf, id=99, 845.04686pt x 597.50786pt>
+ [6]
+<Figures/fig4.pdf, id=150, 845.04686pt x 597.50786pt>
 File: Figures/fig4.pdf Graphic file (type pdf)
  <use Figures/fig4.pdf>
 Package pdftex.def Info: Figures/fig4.pdf used on input line 366.
 (pdftex.def)             Requested size: 338.01276pt x 238.9989pt.
 
-
-LaTeX Warning: Reference `fig:RK2' on page 6 undefined on input line 370.
-
-
-LaTeX Warning: Reference `LastPage' on page 6 undefined on input line 376.
-
-[6]
+[7 <./Figures/fig4.pdf>]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -819,15 +784,12 @@ runsystem(rm plos_latex_template.out.pyg)...executed.
 runsystem(rm plos_latex_template.pyg)...executed.
 
 
-
-LaTeX Warning: Reference `LastPage' on page 7 undefined on input line 399.
-
-[7 <./Figures/fig4.pdf>]
 
 LaTeX Warning: Reference `' on page 8 undefined on input line 414.
 
+[8]
 
-LaTeX Warning: Reference `' on page 8 undefined on input line 424.
+LaTeX Warning: Reference `' on page 9 undefined on input line 424.
 
 \openout3 = `plos_latex_template.pyg'.
 
@@ -835,11 +797,30 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
-(./plos_latex_template.out.pyg
+(./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
 
-LaTeX Warning: Reference `LastPage' on page 8 undefined on input line 8.
+runsystem(rm plos_latex_template.pyg)...executed.
 
-[8])
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg [9])
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+
+(./plos_latex_template.out.pyg [10])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
@@ -855,173 +836,26 @@ runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
-
-
-LaTeX Warning: Reference `LastPage' on page 9 undefined on input line 477.
-
-[9]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg
-
-LaTeX Warning: Reference `LastPage' on page 10 undefined on input line 5.
-
-[10])
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-
-
-LaTeX Warning: Reference `LastPage' on page 11 undefined on input line 563.
-
-[11] (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-34.def
+ [11]
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-34.def
 File: uni-34.def 2012/04/20 UCS: Unicode data U+2200..U+22FF
 )
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-468.def
 File: uni-468.def 2012/04/20 UCS: Unicode data U+1D400..U+1D4FF
-)
-
-LaTeX Warning: Reference `d3_1' on page 12 undefined on input line 584.
-
-
-LaTeX Warning: Reference `d3_5' on page 12 undefined on input line 584.
-
-
-LaTeX Warning: Reference `d3_6' on page 12 undefined on input line 584.
-
-
-LaTeX Warning: Reference `d3_7' on page 12 undefined on input line 584.
-
-
-LaTeX Warning: Reference `d3_2' on page 12 undefined on input line 584.
-
-
-LaTeX Warning: Reference `d3_3' on page 12 undefined on input line 584.
-
-
-LaTeX Warning: Reference `d3_4' on page 12 undefined on input line 584.
-
+) [12]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
-(./plos_latex_template.out.pyg
 
-LaTeX Warning: Reference `LastPage' on page 12 undefined on input line 7.
-
-[12]
-
-LaTeX Warning: Reference `LastPage' on page 13 undefined on input line 56.
-
-[13])
+(./plos_latex_template.out.pyg [13])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
-
-
-LaTeX Warning: Reference `LastPage' on page 14 undefined on input line 677.
-
-[14]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-
-
-LaTeX Warning: Reference `LastPage' on page 15 undefined on input line 725.
-
-[15]
-
-LaTeX Warning: Reference `LastPage' on page 16 undefined on input line 748.
-
-[16]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-
-
-LaTeX Warning: Reference `LastPage' on page 17 undefined on input line 779.
-
-[17]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-
-
-LaTeX Warning: Reference `d3_5' on page 18 undefined on input line 822.
-
-
-LaTeX Warning: Reference `d3_6' on page 18 undefined on input line 822.
-
-
-LaTeX Warning: Reference `d3_7' on page 18 undefined on input line 822.
-
-
-LaTeX Warning: Reference `d3_1' on page 18 undefined on input line 822.
-
-
-LaTeX Warning: Reference `d4_1' on page 18 undefined on input line 826.
-
-
-LaTeX Warning: Reference `d4_2' on page 18 undefined on input line 826.
-
-
-LaTeX Warning: Reference `LastPage' on page 18 undefined on input line 828.
-
-[18]
+ [14]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -1029,17 +863,57 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 ted.
 
  (./plos_latex_template.out.pyg
-
-LaTeX Warning: Reference `LastPage' on page 19 undefined on input line 18.
-
-[19])
+[15])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
+\openout3 = `plos_latex_template.pyg'.
 
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
 
-LaTeX Warning: Reference `LastPage' on page 20 undefined on input line 935.
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+ [16]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg
+[17])
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg [18])
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+ [19]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
 
 [20]
 \openout3 = `plos_latex_template.pyg'.
@@ -1048,16 +922,11 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
- (./plos_latex_template.out.pyg)
+ (./plos_latex_template.out.pyg [21])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
-
-
-LaTeX Warning: Reference `LastPage' on page 21 undefined on input line 975.
-
-[21]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -1065,9 +934,6 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 ted.
 
  (./plos_latex_template.out.pyg
-
-LaTeX Warning: Reference `LastPage' on page 22 undefined on input line 34.
-
 [22])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
@@ -1084,6 +950,7 @@ runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
+ [23]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -1096,25 +963,7 @@ runsystem(rm plos_latex_template.out.pyg)...executed.
 runsystem(rm plos_latex_template.pyg)...executed.
 
 
-
-LaTeX Warning: Reference `LastPage' on page 23 undefined on input line 1061.
-
-[23]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg
-
-LaTeX Warning: Reference `LastPage' on page 24 undefined on input line 5.
-
-[24])
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
+[24]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -1132,11 +981,7 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
- (./plos_latex_template.out.pyg
-
-LaTeX Warning: Reference `LastPage' on page 25 undefined on input line 6.
-
-[25])
+ (./plos_latex_template.out.pyg [25])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
@@ -1147,15 +992,13 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
- (./plos_latex_template.out.pyg
 
-LaTeX Warning: Reference `LastPage' on page 26 undefined on input line 17.
-
-[26])
+(./plos_latex_template.out.pyg)
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
+ [26]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -1173,83 +1016,77 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
- (./plos_latex_template.out.pyg
 
-LaTeX Warning: Reference `LastPage' on page 27 undefined on input line 5.
-
-[27])
+(./plos_latex_template.out.pyg [27])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
+\openout3 = `plos_latex_template.pyg'.
 
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
 
-LaTeX Warning: Reference `LastPage' on page 28 undefined on input line 1304.
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
 
-[28]
+runsystem(rm plos_latex_template.pyg)...executed.
 
-Package lastpage Warning: Rerun to get the references right on input line 1314.
-
-
+ [28]
 
 AED: lastpage setting LastPage
-
-LaTeX Warning: Reference `LastPage' on page 29 undefined on input line 1314.
-
 [29]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1314.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1314.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1318.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1318.
  (./plos_latex_template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1314.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1314.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1318.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1318.
 
+Package rerunfilecheck Info: File `plos_latex_template.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
-
-Package rerunfilecheck Warning: File `plos_latex_template.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `plos_latex_template.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
 
 LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1314.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1318.
  ) 
 Here is how much of TeX's memory you used:
- 12912 strings out of 495059
- 190025 string characters out of 3182030
- 319108 words of memory out of 3000000
- 15637 multiletter control sequences out of 15000+200000
- 11215 words of font info for 62 fonts, out of 3000000 for 9000
+ 12920 strings out of 495059
+ 190213 string characters out of 3182030
+ 321387 words of memory out of 3000000
+ 15639 multiletter control sequences out of 15000+200000
+ 10876 words of font info for 61 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 42i,12n,43p,1845b,548s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/collins/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home
-/collins/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0700.600pk></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
-2.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmtt10.pfb>
-Output written on plos_latex_template.pdf (29 pages, 333881 bytes).
+ 42i,12n,43p,1839b,556s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{page.30} has been referenced but does not exist, 
+replaced by a fixed one
+
+ </home/collins/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/symbols/msam10.pfb>
+Output written on plos_latex_template.pdf (29 pages, 362531 bytes).
 PDF statistics:
- 431 PDF objects out of 1000 (max. 8388607)
- 343 compressed objects within 4 object streams
- 158 named destinations out of 1000 (max. 500000)
- 13840 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 515 PDF objects out of 1000 (max. 8388607)
+ 417 compressed objects within 5 object streams
+ 159 named destinations out of 1000 (max. 500000)
+ 13333 words of extra memory for PDF output out of 14400 (max. 10000000)
 
