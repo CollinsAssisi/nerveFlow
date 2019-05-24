@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.6.24)  23 MAY 2019 21:56
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.6.24)  24 MAY 2019 19:24
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -707,14 +707,14 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 <Figures/Bench.pdf, id=16, 382.42876pt x 350.91382pt>
 File: Figures/Bench.pdf Graphic file (type pdf)
  <use Figures/Bench.pdf>
-Package pdftex.def Info: Figures/Bench.pdf used on input line 221.
+Package pdftex.def Info: Figures/Bench.pdf used on input line 219.
 (pdftex.def)             Requested size: 267.69829pt x 245.638pt.
 
-[2] [3 <./Figures/Bench.pdf>]
-<Figures/fig1.pdf, id=75, 845.04686pt x 597.50786pt>
+[2 <./Figures/Bench.pdf>] [3]
+<Figures/fig1.pdf, id=73, 845.04686pt x 597.50786pt>
 File: Figures/fig1.pdf Graphic file (type pdf)
  <use Figures/fig1.pdf>
-Package pdftex.def Info: Figures/fig1.pdf used on input line 264.
+Package pdftex.def Info: Figures/fig1.pdf used on input line 260.
 (pdftex.def)             Requested size: 338.01276pt x 238.9989pt.
 \openout3 = `plos_latex_template.pyg'.
 
@@ -726,7 +726,7 @@ ted.
 (./plos_latex_template.out.pyg
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 2.
- [4 <./Figures/fig1.pdf>])
+ [4])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
@@ -735,43 +735,12 @@ runsystem(rm plos_latex_template.pyg)...executed.
 
 pdfTeX warning: pdflatex (file ./Figures/fig2.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
-<Figures/fig2.pdf, id=104, 433.62pt x 289.08pt>
+<Figures/fig2.pdf, id=89, 433.62pt x 289.08pt>
 File: Figures/fig2.pdf Graphic file (type pdf)
  <use Figures/fig2.pdf>
-Package pdftex.def Info: Figures/fig2.pdf used on input line 289.
+Package pdftex.def Info: Figures/fig2.pdf used on input line 285.
 (pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
-
-(./plos_latex_template.out.pyg [5 <./Figures/fig2.pdf>])
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
-
-(./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
- [6]
-<Figures/fig4.pdf, id=150, 845.04686pt x 597.50786pt>
-File: Figures/fig4.pdf Graphic file (type pdf)
- <use Figures/fig4.pdf>
-Package pdftex.def Info: Figures/fig4.pdf used on input line 366.
-(pdftex.def)             Requested size: 338.01276pt x 238.9989pt.
-
-[7 <./Figures/fig4.pdf>]
+ [5 <./Figures/fig1.pdf>]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -783,13 +752,44 @@ runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
+ [6 <./Figures/fig2.pdf>]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
 
 
-LaTeX Warning: Reference `' on page 8 undefined on input line 414.
+(./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
 
-[8]
+runsystem(rm plos_latex_template.pyg)...executed.
 
-LaTeX Warning: Reference `' on page 9 undefined on input line 424.
+
+<Figures/fig4.pdf, id=150, 845.04686pt x 597.50786pt>
+File: Figures/fig4.pdf Graphic file (type pdf)
+ <use Figures/fig4.pdf>
+Package pdftex.def Info: Figures/fig4.pdf used on input line 362.
+(pdftex.def)             Requested size: 338.01276pt x 238.9989pt.
+
+[7]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+ [8 <./Figures/fig4.pdf>]
+
+LaTeX Warning: Reference `' on page 9 undefined on input line 410.
+
+
+LaTeX Warning: Reference `' on page 9 undefined on input line 420.
 
 \openout3 = `plos_latex_template.pyg'.
 
@@ -797,7 +797,7 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
-(./plos_latex_template.out.pyg)
+(./plos_latex_template.out.pyg [9])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
@@ -808,7 +808,7 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
- (./plos_latex_template.out.pyg [9])
+ (./plos_latex_template.out.pyg)
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
@@ -831,12 +831,12 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
- (./plos_latex_template.out.pyg)
+ (./plos_latex_template.out.pyg [11])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
- [11]
+
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-34.def
 File: uni-34.def 2012/04/20 UCS: Unicode data U+2200..U+22FF
 )
@@ -850,24 +850,12 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 ted.
 
 
-(./plos_latex_template.out.pyg [13])
+(./plos_latex_template.out.pyg [13] [14])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
- [14]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg
-[15])
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
+ [15]
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -875,113 +863,6 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 ted.
 
  (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
- [16]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg
-[17])
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg [18])
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
- [19]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-[20]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg [21])
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg
-[22])
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
- [23]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-
-[24]
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg)
-runsystem(rm plos_latex_template.out.pyg)...executed.
-
-runsystem(rm plos_latex_template.pyg)...executed.
-
-\openout3 = `plos_latex_template.pyg'.
-
-runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
-"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
-ted.
-
- (./plos_latex_template.out.pyg [25])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
@@ -998,7 +879,127 @@ runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
- [26]
+ [16] [17]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+
+(./plos_latex_template.out.pyg [18])
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+ [19]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg
+[20])
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+ [21]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+ [22]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+[23]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+ [24]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+
+(./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+ [25]
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+ (./plos_latex_template.out.pyg)
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
+\openout3 = `plos_latex_template.pyg'.
+
+runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
+"verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
+ted.
+
+
+(./plos_latex_template.out.pyg [26])
+runsystem(rm plos_latex_template.out.pyg)...executed.
+
+runsystem(rm plos_latex_template.pyg)...executed.
+
 \openout3 = `plos_latex_template.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -1028,20 +1029,20 @@ runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P
 "verboptions= " -o plos_latex_template.out.pyg plos_latex_template.pyg)...execu
 ted.
 
- (./plos_latex_template.out.pyg)
+ (./plos_latex_template.out.pyg [28])
 runsystem(rm plos_latex_template.out.pyg)...executed.
 
 runsystem(rm plos_latex_template.pyg)...executed.
 
- [28]
+
 
 AED: lastpage setting LastPage
 [29]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1318.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1318.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1314.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1314.
  (./plos_latex_template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1318.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1318.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1314.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1314.
 
 Package rerunfilecheck Info: File `plos_latex_template.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
@@ -1052,16 +1053,16 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1318.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1314.
  ) 
 Here is how much of TeX's memory you used:
- 12920 strings out of 495059
- 190213 string characters out of 3182030
- 321387 words of memory out of 3000000
- 15639 multiletter control sequences out of 15000+200000
+ 12913 strings out of 495059
+ 190149 string characters out of 3182030
+ 321274 words of memory out of 3000000
+ 15632 multiletter control sequences out of 15000+200000
  10876 words of font info for 61 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 42i,12n,43p,1839b,556s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,12n,43p,1839b,551s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{page.30} has been referenced but does not exist, 
 replaced by a fixed one
 
@@ -1083,7 +1084,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /public/amsfonts/symbols/msam10.pfb>
-Output written on plos_latex_template.pdf (29 pages, 362531 bytes).
+Output written on plos_latex_template.pdf (29 pages, 364231 bytes).
 PDF statistics:
  515 PDF objects out of 1000 (max. 8388607)
  417 compressed objects within 5 object streams
