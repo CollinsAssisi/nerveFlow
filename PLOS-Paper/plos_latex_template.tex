@@ -109,6 +109,8 @@
 % code-listing package
 \usepackage{minted}
 
+%figure placement package
+\usepackage{float}
 %chemical reaction package
 %\usepackage{mhchem}
 
@@ -213,15 +215,15 @@ In the form of a 5-day tutorial, the reader is introduced to the mathematical mo
 \linenumbers
 
 % Use "Eq" instead of "Equation" for equation citations.
-\section*{Introduction and motivation}
-Information processing in the nervous system spans a number of spatial and temporal scales. Millisecond fluctuations in ionic concentration at a synapse $10^-$ can cascade into long term (hours to days) changes in the behavior of the organism. Capturing the temporal scales and the details of the dynamics of the brain is a colossal computational endeavour. The dynamics of single and small networks of neurons can easily be simulated using a desktop computer with high level, readable, programing languages like Python. However, large networks of conductance based neurons are often simulated on clusters of CPUs. More recently, graphical processing units (GPUs) have become increasingly available due to lower (though still prohibitive) costs and from cloud services by Google Cloud and Amazon AWS among others. Writing code for each of these platforms is non trivial and requires a considerable investment of time to master different software tools. For example, implementing parallelism in multiple core shared memory architectures is often achieved using Open Multi-Processing (OpenMP) with C or C++. Message Passing Interface (MPI) libraries are used to implement code that computes over high performance computing clusters. Compute Unified Device Architecture (CUDA) allows users to run code on NVIDIA's GPUs. However, code written for one platform cannot be used on other platforms. This poses a high barrier of entry for computational neuroscientists conversant with a high-level programing language, attempting to test simulations on different platforms. 
+\section*{Motivation}
+Information processing in the nervous system spans a number of spatial and temporal scales. Millisecond fluctuations in ionic concentration at a synapse $10^-$ can cascade into long term (hours to days) changes in the behavior of the organism. Capturing the temporal scales and the details of the dynamics of the brain is a colossal computational endeavour. The dynamics of single and small networks of neurons can easily be simulated on a desktop computer with high level, readable, programing languages like Python. However, large networks of conductance based neurons are often simulated on clusters of CPUs. More recently, graphical processing units (GPUs) have become increasingly available due to lower (though still prohibitive) costs and from cloud services like Google Cloud and Amazon AWS among others. Writing code for each of these platforms is non trivial and requires a considerable investment of time to master different software tools. For example, implementing parallelism in multiple core shared memory architectures is often achieved using Open Multi-Processing (OpenMP) with C or C++. Message Passing Interface (MPI) libraries are used to implement code that computes over high performance computing clusters. Compute Unified Device Architecture (CUDA) allows users to run programs on NVIDIA's GPUs. However, code written for one platform cannot be used on other platforms. This poses a high barrier of entry for computational neuroscientists conversant with a high-level programing language, attempting to test simulations on different platforms. The tutorials are linked in the supplementary material as Python notebooks (.ipynb files) that can be accessed using Jupyter and as .html files that can be read using any browser.
+
+This is where TensorFlow, a Python library that was originally written to cater to machine learning applications~\cite{}, comes in handy. TensorFlow is highly scalable. Code written using TensorFlow functions can work seamlessly on single cores, multi-core shared memory processors, high-performance computer clusters, GPUs and Tensor processing units (TPUs - a propreitary chip designed by Google to work with TensorFlow). We found (as others have (ref??)), that TensorFlow functions can be used to implement numerical methods to solve ODEs. Doing so gave us a significant speed-up even on a single desktop with a multicore processor compared to similar Python code that did not use TensorFlow functions and operated on a single core. The code itself was highly readable and could be debugged with ease. Familiarity with the Python programming language and a brief introduction to some TensorFlow functions proved sufficient to write the code. Python is a an extremely popular programming language that used across number of disciplines and has found a broad user base among Biologists. We found that introducing a few TensorFlow constructs to Python, an easy addition to a familiar language, can bring readers to a point where they can simulate large networks of neurons in a platform independent manner. Further, by piggybacking on TensorFlow we will also be able to take advantage of an active TensorFlow developer community in addition to a wide range of Python libraries that are already available. 
 \begin{figure}
 \includegraphics[scale=0.7]{Figures/Bench.pdf} 
 \caption{Comparison of Python and Tensorflow on an 8 core, 2.1GHz desktop with 2 Intel Xeon E5-2620 processors}
 \label{fig:comparison}
 \end{figure}
-This is where TensorFlow, a Python library that was originally written to cater to machine learning applications~\cite{}, comes in handy. TensorFlow is highly scalable. Code written using TensorFlow functions can work seamlessly on single cores, multi-core shared memory processors, high-performance computer clusters, GPUs and Tensor processing units (TPUs - a propreitary chip designed by Google to work with TensorFlow). We found (as others have (ref??)), that TensorFlow functions can be used to implement numerical methods to solve ODEs. Doing so gave us a significant speed-up even on a single desktop with a multicore processor compared to similar Python code that did not use TensorFlow functions and operated on a single core. The code itself was highly readable and could be debugged with ease. Familiarity with the Python programming language and a brief introduction to some TensorFlow functions proved sufficient to write the code. Python is a an extremely popular programming language that used across number of disciplines and has found a broad user base among Biologists. We found that introducing a few TensorFlow constructs to Python, an easy addition to a familiar language, can bring readers to a point where they can simulate large networks of neurons in a platform independent manner. Further, by piggybacking on TensorFlow we will also be able to take advantage of an active TensorFlow developer community in addition to a wide range of Python libraries that are already available. 
-
 These tutorials were written to address a group of undergraduate students in our institute. These students came from diverse backgrounds and had a basic introduction to Python during their first semester. They were interested in working on problems in Computational Neuroscience. Our goal was to introduce them to some of the numerical tools and mathematical models in Neuroscience while also allowing them to tinker with advanced projects that required writing code that ran on distributed systems. We were careful to keep the innards of the code visible \textemdash the form of the integrator, the specification of the differential equations and the ability to modify the code to suit their needs was particularly important. Towards the end of the tutorial, that many students managed to devour within a day or two, they were in a position to write codes simulating networks of neurons in the antennal lobe, firing rate models of grid cells, detailed networks of stellate cells and inhibitory interneurons and synaptic plasticity. 
 
 %~\cite{bib1}
@@ -238,7 +240,7 @@ Our simulations were run on a Linux desktop running Ubuntu xx.xx and on Google C
 %\label{fig1}
 %\end{figure}
 
-\section*{Day 1: Of Numerical Integration and Python}
+\section*{Day 1: Solving ODEs using Python}
 In this tutorial we are interested in solving ordinary differential equations of the form,
 \begin{equation}
 \frac{dx}{dt} = f(x, t)
@@ -403,23 +405,16 @@ where $L$ = Length of String and $\theta$ = angle made with vertical. To solve t
 
 \subsection*{An Introduction to TensorFlow}
 
-TensorFlow is an open-source software library that was developed by the researchers and engineers in the Google Brain team, primarily for machine learning applications. However, the system is general enough to be applicable in a number of other domains as well.~\cite{}.  Its flexible architecture allows one to perform computations on a number of different platforms \textemdash CPUs, GPUs , TPUs and clusters of servers. 
+TensorFlow is an open-source library that was developed by researchers and engineers in the Google Brain team. TensorFlow has a number of functions that make it particularly suitable for machine learning applications. However, TensorFlow is primarily an interface for numerical computation (ref:TensorFlow whitepaper). All computations in TensorFlow are specified as directed graphs (nodes connected by arrows) known as data flow graphs. Nodes are operations such as addition, multiplication etc. The incoming edges for each node are tensors (scalars, vectors, matrices and higher dimensional arrays) that are the actual values that are operated upon. The output is also a tensor that results from computation. For example, consider the following computation where two vectors $a$ and $b$ serve as inputs to the node, a matrix multiplication operation, that produces a matrix $c$ as output.
 
-\subsection*{Why GPU/TPU vs CPU?}
-
-The answer lies in the architecture Fig~\ref{}:  
-\begin{itemize}
-\item CPU = Faster per Core Processing, Slow but Large Memory Buffer, Few Cores
-\item GPU/TPU = Slower Processing, Faster but Smaller Memory Buffer, Many Cores
-\end{itemize}
-
-Thus GPUs and TPUs are optimized for large number of simple calculations done parallely. The extent of this  parallelization makes it suitable for vector/tensor manipulation.
-
-\subsection*{How TensorFlow works?}
-
-TensorFlow essentially performs numerical computations on multidimensional arrays (called tensors) using "data flow graphs" or "computation graphs". In these graphs, nodes represent variables/placeholders/constants or mathematical operations such as matrix multiplication or elementwise addition and the edges in the graph represent the flow of tensors between operations (nodes). Tensor is the central unit of data in TensorFlow giving the package its name. For example, look at the following computation graph in Fig~\ref{} where "matmul" is the node which represents the matrix multiplication operation. a and b are input matrices (2-D tensors) and c is the resultant matrix.
-
-\subsection*{Implementing a computation graph in TensorFlow}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.7]{Figures/fig6.pdf} 
+\caption{Example of a simple computational graph}
+\end{center}
+\label{fig:compGraph}
+\end{figure}
+The following program implements the computation described in~\ref{fig:compGraph}.
 
 \begin{minted}[linenos]{python}
 # Creating nodes in the computation graph 
@@ -436,6 +431,17 @@ print(output)
 # with tf.Session() as sess:
 #    output = sess.run(c) 
 \end{minted}
+By specifying the computation graph we also specify the dependcies among the nodes. One can thus split the graph into smaller chunks or sub-graphs that can be independently computed by different devices that coordinate with each other. This makes it possible to develop programs that are device independent and scalable across CPUs, GPUs , TPUs and clusters of servers. GPUs and TPUs are relatively recent additions to the computing 
+
+\subsection*{Advantages of GPU/TPU vs CPU?}
+NVIDIA introduced its first Graphical Processing Unit (or GPU), the GE XForce GTE ??, in 1999. Until then all calculations and graphical rendering was done using the CPU. 
+The answer lies in the architecture Fig~\ref{}:  
+\begin{itemize}
+\item CPU = Faster per Core Processing, Slow but Large Memory Buffer, Few Cores
+\item GPU/TPU = Slower Processing, Faster but Smaller Memory Buffer, Many Cores
+\end{itemize}
+
+Thus GPUs and TPUs are optimized for large number of simple calculations done parallely. The extent of this  parallelization makes it suitable for vector/tensor manipulation.
 
 \subsection*{Iterating recursively over lists/arrays in TensorFlow}
 
