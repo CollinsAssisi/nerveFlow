@@ -204,19 +204,18 @@ Indian Institute of Science Education and Research, Pune, Maharashtra, India\\
 Neuronal networks are often modelled as systems of coupled, nonlinear, ordinary or
 partial differential equations. The number of differential equations used to model a
 network increases with the size of the network and the level of detail used to model
-individual neurons and synapses. As one scales up the size of the simulation it becomes important to use powerful computing platforms. Many tools exist that solve these equations numerically. However, these tools are often platform-specific. There is a high barrier of entry to developing flexible general purpose code that is platform independent and supports hardware acceleration on modern computing architectures such as GPUs/TPUs and Distributed Platforms. TensorFlow is a Python-based open-source package initially designed for machine learning algorithms, but it presents a scalable environment for a variety of computations including solving differential equations using iterative algorithms such as Runge-Kutta methods. In this article, organized as a series of tutorials, we demonstrate how to harness the power of TensorFlow’s data-flow programming paradigm to solve differential equations. Our tutorial is a simple exposition of numerical methods to solve ordinary differential equations using Python and TensorFlow. It consists of a series of Python notebooks that accompany this paper. Over the course of five sessions, we lead novice programmers from integrating simple 1-dimensional differential equations using Python, to solving a large system (1000’s of differential equations) of coupled conductance-based neurons using a highly parallelised and scalable framework that uses Python and TensorFlow. Embedded in the tutorial is a physiologically realistic implementation of a network in the insect olfactory system. This system, consisting of multiple neuron and synapse types, can serve as a template to simulate other networks.
+individual neurons and synapses. As one scales up the size of the simulation it becomes important to use powerful computing platforms. Many tools exist that solve these equations numerically. However, these tools are often platform-specific. There is a high barrier of entry to developing flexible general purpose code that is platform independent and supports hardware acceleration on modern computing architectures such as GPUs/TPUs and Distributed Platforms. TensorFlow is a Python-based open-source package initially designed for machine learning algorithms, but it presents a scalable environment for a variety of computations including solving differential equations using iterative algorithms such as Runge-Kutta methods. In this article, organized as a series of tutorials, we demonstrate how to harness the power of TensorFlow’s data-flow programming paradigm to solve differential equations. Our tutorial is a simple exposition of numerical methods to solve ordinary differential equations using Python and TensorFlow. It consists of a series of Python notebooks that accompany this paper. Over the course of five sessions, we lead novice programmers from writing programs to integrate simple 1-dimensional differential equations using Python, to solving a large system (1000’s of differential equations) of coupled conductance-based neurons using a highly parallelised and scalable framework that uses Python and TensorFlow. Embedded in the tutorial is a physiologically realistic implementation of a network in the insect olfactory system. This system, consisting of multiple neuron and synapse types, can serve as a template to simulate other networks.
 
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
-\section*{Author summary}
-In the form of a 5-day tutorial, the reader is introduced to the mathematical modelling of neuronal networks based on the Hodgkin-Huxley Differential Equations and is instructed on developing highly parallelised but easily readable code for numerical methods such as Euler's Method and Runge-Kutta Methods to solve differential equations in Python and use them to simulate neuronal dynamics. To develop scalable code, Google's open-source package TensorFlow is introduced, and the reader is instructed in developing simulations using this package and handling the few limitations that come with this implementation. The reader is also introduced to coding structures that maximise the parallelizability of the simulation. Finally, the coding paradigm that was developed is used to simulate a model of Locus Antennal Lobe described in previous literature, and its efficacy is analysed. 
+
 
 \linenumbers
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Motivation}
-Information processing in the nervous system spans a number of spatial and temporal scales. Millisecond fluctuations in ionic concentration at a synapse $10^-$ can cascade into long term (hours to days) changes in the behavior of the organism. Capturing the temporal scales and the details of the dynamics of the brain is a colossal computational endeavour. The dynamics of single and small networks of neurons can easily be simulated on a desktop computer with high level, readable, programing languages like Python. However, large networks of conductance based neurons are often simulated on clusters of CPUs. More recently, graphical processing units (GPUs) have become increasingly available due to lower (though still prohibitive) costs and from cloud services like Google Cloud and Amazon AWS among others. Writing code for each of these platforms is non trivial and requires a considerable investment of time to master different software tools. For example, implementing parallelism in multiple core shared memory architectures is often achieved using Open Multi-Processing (OpenMP) with C or C++. Message Passing Interface (MPI) libraries are used to implement code that computes over high performance computing clusters. Compute Unified Device Architecture (CUDA) allows users to run programs on NVIDIA's GPUs. However, code written for one platform cannot be used on other platforms. This poses a high barrier of entry for computational neuroscientists conversant with a high-level programing language, attempting to test simulations on different platforms. The tutorials are linked in the supplementary material as Python notebooks (.ipynb files) that can be accessed using Jupyter and as .html files that can be read using any browser.
+Information processing in the nervous system spans a number of spatial and temporal scales. Millisecond fluctuations in ionic concentration at a synapse $10^-$ can cascade into long term (hours to days) changes in the behavior of the organism. Capturing the temporal scales and the details of the dynamics of the brain is a colossal computational endeavour. The dynamics of single and small networks of neurons can easily be simulated on a desktop computer with high level, readable, programing languages like Python. However, large networks of conductance based neurons are often simulated on clusters of CPUs. More recently, graphical processing units (GPUs) have become increasingly available due to lower (though still prohibitive) costs and from cloud services like Google Cloud and Amazon AWS among others. Writing code for each of these platforms is non trivial and requires a considerable investment of time to master different software tools. For example, implementing parallelism in multiple core shared memory architectures is often achieved using Open Multi-Processing (OpenMP) with C or C++. Message Passing Interface (MPI) libraries are used to implement code that computes over high performance computing clusters. Compute Unified Device Architecture (CUDA) allows users to run programs on NVIDIA's GPUs. However, code written for one platform cannot be used on other platforms. This poses a high barrier of entry for computational neuroscientists conversant with a high-level programing language, attempting to test simulations on different platforms. 
 
 This is where TensorFlow, a Python library that was originally written to cater to machine learning applications~\cite{}, comes in handy. TensorFlow is highly scalable. Code written using TensorFlow functions can work seamlessly on single cores, multi-core shared memory processors, high-performance computer clusters, GPUs and Tensor processing units (TPUs - a propreitary chip designed by Google to work with TensorFlow). We found (as others have (ref??)), that TensorFlow functions can be used to implement numerical methods to solve ODEs. Doing so gave us a significant speed-up even on a single desktop with a multicore processor compared to similar Python code that did not use TensorFlow functions and operated on a single core. The code itself was highly readable and could be debugged with ease. Familiarity with the Python programming language and a brief introduction to some TensorFlow functions proved sufficient to write the code. Python is a an extremely popular programming language that used across number of disciplines and has found a broad user base among Biologists. We found that introducing a few TensorFlow constructs to Python, an easy addition to a familiar language, can bring readers to a point where they can simulate large networks of neurons in a platform independent manner. Further, by piggybacking on TensorFlow we will also be able to take advantage of an active TensorFlow developer community in addition to a wide range of Python libraries that are already available. 
 \begin{figure}
@@ -224,13 +223,16 @@ This is where TensorFlow, a Python library that was originally written to cater 
 \caption{Comparison of Python and Tensorflow on an 8 core, 2.1GHz desktop with 2 Intel Xeon E5-2620 processors}
 \label{fig:comparison}
 \end{figure}
+
+Note on GPU/TPU cloud
+
 These tutorials were written to address a group of undergraduate students in our institute. These students came from diverse backgrounds and had a basic introduction to Python during their first semester. They were interested in working on problems in Computational Neuroscience. Our goal was to introduce them to some of the numerical tools and mathematical models in Neuroscience while also allowing them to tinker with advanced projects that required writing code that ran on distributed systems. We were careful to keep the innards of the code visible \textemdash the form of the integrator, the specification of the differential equations and the ability to modify the code to suit their needs was particularly important. Towards the end of the tutorial, that many students managed to devour within a day or two, they were in a position to write codes simulating networks of neurons in the antennal lobe, firing rate models of grid cells, detailed networks of stellate cells and inhibitory interneurons and synaptic plasticity. 
 
 %~\cite{bib1}
 
 \section*{How to use this Tutorial}
 A reader familiar with Python will find this tutorial accessible. We use a number of Numpy and Matplotlib functions to simulate and display figures. These libraries are well documented with excellent introductory guides. During Day 1 of this tutorial we introduce numerical integration using Python without using any TensorFlow functions. On Day 2 we use TensorFlow functions to implement the integrator. Day 5 talks about memory management in TensorFlow. On Days 3 and 4 we use the code developed on Days 1 and 2 to simulate networks of conductance based neurons. eaders who are not interested in simulating neurons, but solving differential equations in other domains, Days 1, 2 and 5 are self-contained and can be read without reference to the material covered on Days 3 and 4. 
-Our simulations were run on a Linux desktop running Ubuntu xx.xx and on Google Cloud. We recommend that readers install Python 3.6 or above, Jupyter Notebook, Numpy Python package, Matplotlib Python package, and TensorFlow 1.13 or above using the Anaconda distribution of Python 3.
+Our simulations were run on a Linux desktop running Ubuntu xx.xx and on Google Cloud. We recommend that readers install Python 3.6 or above, Jupyter Notebook, Numpy Python package, Matplotlib Python package, and TensorFlow 1.13 or above using the Anaconda distribution of Python 3. The tutorials are linked in the supplementary material as Python notebooks (.ipynb files) that can be accessed using Jupyter and as .html files that can be read using any browser.
 % For figure citations, please use "Fig" instead of "Figure". Fig~\ref{fig1}
 
 % Place figure captions after the first paragraph in which they are cited.
@@ -258,13 +260,13 @@ x(t+\epsilon) = x_{0} + \epsilon\frac{dx}{dt} + \mathcal{O}(\epsilon^2)
 \end{equation}
 where $\frac{dx}{dt}=f(x,t)$. The higher order terms $\mathcal{O}(\epsilon^2)$ are ignored in this approximation. 
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[scale=0.4]{Figures/fig1.pdf} 
 \caption{Euler's method}
 \label{fig:euler}
 \end{figure}
 
-A geometric interpretation of the Euler's method is shown in figure~\ref{fig:euler}. The solution of a particular differential equation is shown by the solid blue line in the figure. The dashed line approximates this solution by iteratively calculating $x$ at different time points using~\ref{eq:euler}. If the value of the solution at $t_{n}$ is $x_{n}$. $f(x_{n},t)$ is the slope of the tangent to the solution at $t_{n}$. If $\epsilon$ is sufficiently small, the solution at $t_{n+1}=t_{n}+\epsilon$ can be approximated by linearly extrapolating from $x_{n}$ to $x_{n} + \epsilon f(x_{n},t_{n})$
+A geometric interpretation of the Euler's method is shown in figure~\ref{fig:euler}. The solution of a particular differential equation is represented by the solid blue line in the figure. The dashed line approximates this solution by iteratively calculating $x$ at different time points using equation~\ref{eq:euler}. If the value of the solution at $t_{n}$ is $x_{n}$, $f(x_{n},t)$ is the slope of the tangent to the solution at $t_{n}$. If $\epsilon$ is sufficiently small, the solution at $t_{n+1}=t_{n}+\epsilon$ can be approximated by linearly extrapolating from $x_{n}$ to $x_{n} + \epsilon f(x_{n},t_{n})$
 
 \subsection*{Implementation of Euler's Method in Python}
 
@@ -283,7 +285,7 @@ for i in range(1,t.shape[0]):
     x[i] = epsilon*f(x[i-1],t[i-1])+x[i-1] # Euler Integration Step
 \end{minted}
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[scale=0.7]{Figures/fig2.pdf} 
 \caption{Comparison of actual solution and approximation by Euler's method}
 \label{fig:eulerError}
@@ -301,7 +303,7 @@ Euler's Method can also be easily applied to systems of equations. The Initial V
 where $\vec{X}=[X_1,X_2...]$ and $\vec{f}(\vec{X}, t)=[f_1(\vec{X}, t),f_2(\vec{X}, t)...]$. We rewrite Euler's method as:
 
 \begin{eqnarray}t_{n+1} = t_n + \epsilon \end{eqnarray}
-\begin{eqnarray}\vec{X}_{n+1} = \vec{X}_n + \epsilon \vec{f}(\vec{X}_n, t_n)\end{eqnarray}
+\begin{eqnarray}\vec{X}(t_{n+1}) = \vec{X}(t_{n}) + \epsilon \vec{f}(\vec{X}(t_{n}), t_n)\end{eqnarray}
 
 Let $\frac{d\vec{X}}{dt}=f(\vec{X},t)$, we wish to find $\vec{X}(t)$ over $t\in[0,2)$, given that $\vec{X}(t)=[x,y]$, $\vec{X}(0)=[1,0]$ and $f(\vec{X},t) = [x-y,y-x]$. We implement the modified algorithm as follows:
 
@@ -411,8 +413,9 @@ TensorFlow is an open-source library that was developed by researchers and engin
 \begin{center}
 \includegraphics[scale=0.7]{Figures/fig6.pdf} 
 \caption{Example of a simple computational graph}
-\end{center}
 \label{fig:compGraph}
+\end{center}
+
 \end{figure}
 The following program implements the computation described in~\ref{fig:compGraph}.
 
@@ -431,21 +434,10 @@ print(output)
 # with tf.Session() as sess:
 #    output = sess.run(c) 
 \end{minted}
-By specifying the computation graph we also specify the dependcies among the nodes. One can thus split the graph into smaller chunks or sub-graphs that can be independently computed by different devices that coordinate with each other. This makes it possible to develop programs that are device independent and scalable across CPUs, GPUs , TPUs and clusters of servers. GPUs and TPUs are relatively recent additions to the computing 
+By specifying the computation graph we also specify the dependcies among the nodes. One can thus split the graph into smaller chunks or sub-graphs that can be independently computed by different devices that coordinate with each other. This makes it possible to develop programs that are device independent and scalable across CPUs, GPUs , TPUs and clusters of servers. 
 
-\subsection*{Advantages of GPU/TPU vs CPU?}
-NVIDIA introduced its first Graphical Processing Unit (or GPU), the GE XForce GTE ??, in 1999. Until then all calculations and graphical rendering was done using the CPU. 
-The answer lies in the architecture Fig~\ref{}:  
-\begin{itemize}
-\item CPU = Faster per Core Processing, Slow but Large Memory Buffer, Few Cores
-\item GPU/TPU = Slower Processing, Faster but Smaller Memory Buffer, Many Cores
-\end{itemize}
-
-Thus GPUs and TPUs are optimized for large number of simple calculations done parallely. The extent of this  parallelization makes it suitable for vector/tensor manipulation.
-
-\subsection*{Iterating recursively over lists/arrays in TensorFlow}
-
-Say, one wants to recursively apply a function on an initial value but the function takes in additional input at every recursive call, for example, to find a cumulative sum over a list. Every step is addition of the new element from the list onto the last addition. The TensorFlow function tf.scan allows us to easily implement such an iterator.
+\subsection*{Efficient recursion in TensorFlow}
+Numerical integration is essentially a recursive process over a time array $[t_{0},t_{1},t_{2},\dots t_{n}]$. The updation rules for both the Euler and the RK4 integrators can just be written as a recursive function $F$ such that $X_{i+1}=F(X_i,t_i,\epsilon_i)$. The solution of the differential equation is the array $[X_0,F(X_0,t_0,\epsilon_0),F(F(X_0,t_0,\epsilon_0),t_1,\epsilon_1)...]$. We us the TensorFlow function \texttt{tf.scan} to iterate over the time array. The arguments of \texttt{tf.scan} are a recursive function, the list to iterate over and the initial value. If the initial value is not specified \texttt{tf.scan} uses the first element of the list as an initializer. As an example, consider the following program that  calculates the cumulative sum over a list. Every step involves adding an element from the list onto the last addition. 
 
 \begin{minted}[linenos]{python}
 # define the recursive function that takes in two values the
@@ -471,11 +463,10 @@ print(output_b)
 #[ 6  8 11 15 20 26]
 \end{minted}
 
-As an \textbf{Exercise} try using tf.scan to compute the fibonacci sequence. One may have noticed that our integration is essentially an recursive process over the time series. Both the updation rules can just be written as a recursive function $F$ such that $X_{i+1}=F(X_i,t_i,\epsilon_i)$. We would want our output to be the array $[X_0,F(X_0,t_0,\epsilon_0),F(F(X_0,t_0,\epsilon_0),t_1,\epsilon_1)...]$. To get this, we just need to recursively iterate over the array of time and $\epsilon$ and apply a updation function $F$ recursively on the initial condition, which exactly what tf.scan enables us to do.
+\textbf{Exercise} Use \texttt{tf.scan()} to compute the Fibonacci sequence. 
 
 \subsection*{Euler Integration Function in TensorFlow}
-
-Transitioning to TensorFlow is not a trivial process, but once you get a gist of how it works, it is as simple as using numpy. Because of the way the TensorFlow architecture is designed, there are a few limitations to how one can do simpler operations/manipulation. But it is easy to overcome using the correct function and code patterns which can be easily learnt.
+We now implement Euler's method using \texttt{tf.scan} to iterate over the time array. Note that the function \texttt{scan\_func} that defines each step of Euler's method, is now an input to \texttt{tf.scan}.
 
 \begin{minted}[linenos]{python}
 def tf_check_type(t, y0): # Ensure Input is Correct
@@ -522,7 +513,7 @@ with tf.Session() as sess:
 
 \subsection*{RK4 Integration Function in TensorFlow}
 
-Now, we implement the exact same RK4 integrator in TensorFlow, thus we make a small change in the integrate function. Also to make the code more modular, we introduce the differential step calculator to a different function, everything else remains the same.
+Now, we implement the RK4 integrator. Note that here we replace the single step iterator used for the Euler's with a four step RK4 iterator. In addition, to make the code more modular, we define a function \texttt{\_step\_func()} that is called by \texttt{scan\_func} and calculates the next step of the RK4 integrator. The rest of the program remains the same as the Euler's method implemented above.
 
 \begin{minted}[linenos]{python}
 def integrate(self, func, y0, t): 
@@ -543,31 +534,53 @@ def integrate(self, func, y0, t):
         return tf.add_n([k1, 2 * k2, 2 * k3, k4]) * (dt_cast / 6)
 \end{minted}
 
-As an \textbf{Exercise}, try to simulate the non-linear Lorentz Attractor using Euler Method and RK4 on TensorFlow which is given by the equations:
+\textbf{Exercise}, Simulate the non-linear Lorentz Attractor using Euler Method and RK4 on TensorFlow which is given by the equations:
 
 \begin{eqnarray}\frac{dx}{dt}=\sigma(y-x) \end{eqnarray}
 \begin{eqnarray}\frac{dy}{dt}=x(\rho-z)-y \end{eqnarray}
 \begin{eqnarray}\frac{dz}{dt}=xy-\beta z \end{eqnarray}
 
-Use the values $\sigma =10$, $\beta =\frac{8}{3}$, $\rho =28$. You can try simulating this system at two nearby starting conditions and comment on the difference.
+Use the values $\sigma =10$, $\beta =\frac{8}{3}$, $\rho =28$. Simulate these equations for similar initial conditions and compare how the trajectories diverge. The solution of the Lorenz equations should resemble Figure~\ref{fig:Lorenz}
+ 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{Figures/fig6_op.pdf} 
+\caption{Example of a simple computational graph}
+\label{fig:Lorenz}
+\end{center}
 
-\section*{Day 3: Cells in Silicon}
+\end{figure}
 
-We start with our discussion with the Hodgkin Huxley Neurons and how we can simulate them in python using Tensorflow and Numerical Integration.
+\section*{Day 3: Neurons in Silicon}
+The electric potential measured across the membranes of excitable cells, such as neurons or heart cells, can undergo transient changes when perturbed by external inputs. When the inputs to a neuron are sufficiently large these transient changes can regeneratively build up into a large deviation from the resting state known as an action potential. Action potentials propagate along the axon, largely undiminished, and perturb post-synaptic neurons. The Hodgkin-Huxley model is a system of differential equations that describe the generation an action potential and its propagation along the axon.
 
 \subsection*{What is the Hodgkin Huxley Neuron Model?}
+The cell membrane, a 5nm thick lipid bilayer, separates the inside from the outside of the neuron. The membrane is largely impermeable to charged ions present on either side. The concentration of Na\textsuperscript{+} ions outside the cell is greater than its concentration inside, while K\textsuperscript{+} ions are relatively abundant inside compared to the outside. In addition to these there are chloride (Cl\textsuperscript{-}), calcium (Ca\textsuperscript{2+}) and magnesium ions (Mg\textsuperscript{+}) that populate the cellular milieu. The differences in ionic abundances across the membrane causes a net accumulation of positive ions on one side of the membrane and negative ions on the other, and thus a potential difference across the membrane. Embedded on the membrane are ion channels that are highly selective to the ion species it lets across. In the squid axon, Hodgkin and Huxley found that there were only two types of ion channels (Na\textsuperscript{+} and K\textsuperscript{+}), in addition to a non-specific leak channel that, most likely, allowed the passage of Cl\textsuperscript{-} ions. The Hodgkin-Huxley model of neurons can be understood with the help of an equivalent electrical circuit~\ref{fig:HH}) The cell membrane acts as a capacitor. An total injected current ($I$) can be written as the sum of the capacitive current $I_{C}$, ionic currents $I_{Na}$ and $I_{K}$ and the leak current $I_L$.
 
-Hodgkin and Huxley performed many experiments on the giant axon of the squid and found three different types of ion currents - sodium, potassium, and a leak current. They found that specific voltage-dependent ion channels, for sodium and for potassium, control the flow of those ions through the cell membrane from different electrophysiology studies involving phamacological blocking of ion channels. The leak current essentially takes care of other channel types which are not described explicitly. 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{Figures/fig7.pdf} 
+\caption{HH Neuron}
+\label{fig:HH}
+\end{center}
+\end{figure}
 
-The Hodgkin-Huxley model of neurons can easily be understood with the help of a RC circuit diagram.(Fig) The semipermeable cell membrane separates the interior of the cell from the extracellular liquid and acts as a capacitor. If an input current I(t) is injected into the cell, it may add further charge on the capacitor, or leak through the channels in the cell membrane. Because of active ion transport through the cell membrane, the ion concentration inside the cell is different from that in the extracellular liquid. The Nernst potential generated by the difference in ion concentration is represented by a battery.
-
-We now convert the above considerations into mathematical equations. The conservation of electric charge on a piece of membrane implies that the applied current $I(t)$ may be split in a capacitive current $I_C$ which charges the capacitor $C_m = 1 \mu F/cm^2$ and further components $I_k$ which pass through the ion channels. Thus $I(t) = I_C(t) + \sum_kI_k(t)$ where the sum runs over all ion channels. 
-
-In the standard Hodgkin-Huxley model, there are only three types of channel: a Sodium channel, a Potassium channel and an unspecific leakage channel. From the definition of a capacitance $C_m=\frac{q}{u}$, $I_C=C_m\frac{du}{dt}$ where $q$ is a charge and $u$ the voltage across the capacitor. Thus the model becomes:
-
+\begin{equation}
+I = I_{C}(t) + I_{Na}(t) + I_{K}(t)
+\end{equation}
+where, 
+\begin{eqnarray}
+C_m = 1 \mu F/cm^2 \\
+I_{Na} = g_{Na}(u-E_{Na})\\
+I_{K} = g_{k}(u-E_K)
+I_{L} = g_{L}(u-E_L)
+\end{eqnarray}
+The equation describing the membrane potential can thus be written as follows,
 \begin{eqnarray}\label{d3_1}C_m\frac{du}{dt}=−I_{Na}(t)−I_{K}(t)−I_{L}(𝑡)+I(t)\end{eqnarray}
+Hodgkin and Huxley discovered that the $Na$ and the $K$ channels do not act as Ohmic conductances, but are modulated by the potential across the membrane. 
+Changes in potential had a nonlinear effect on flow of ionic currents. They fitted their experimental results to a system of differential equations that described the temporal evolution of the membrane potential in terms of changes in ionic currents (chiefly Na\textsuperscript{+} and \textsuperscript{+}). 
 
-In biological terms, $u$ is the voltage across the membrane. Hogkin and Huxley found the Na and K ion currents to be dependent on the voltage and of the form given below:
+Hogkin and Huxley found the Na and K ion currents to be dependent on the voltage and of the form given below:
 
 \begin{eqnarray}\label{d3_2}I_{Na} = g_{Na}m^3h(u−E_{Na})\end{eqnarray}
 \begin{eqnarray}\label{d3_3}I_K = g_Kn^4(u−E_K)\end{eqnarray}
