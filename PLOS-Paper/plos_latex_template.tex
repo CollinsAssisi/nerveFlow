@@ -576,7 +576,10 @@ I_{K} = g_{k}(u-E_K)
 I_{L} = g_{L}(u-E_L)
 \end{eqnarray}
 The equation describing the membrane potential can thus be written as follows,
-\begin{eqnarray}\label{d3_1}C_m\frac{du}{dt}=−I_{Na}(t)−I_{K}(t)−I_{L}(𝑡)+I(t)\end{eqnarray}
+\begin{eqnarray}
+\label{eq:HH}
+C_m\frac{du}{dt}=−I_{Na}(t)−I_{K}(t)−I_{L}(𝑡)+I(t)
+\end{eqnarray}
 Hodgkin and Huxley discovered that the $Na$ and the $K$ channels do not act as Ohmic conductances, but are modulated by the potential across the membrane. 
 Changes in potential had a nonlinear effect on flow of ionic currents. They fitted their experimental results to a system of differential equations that described the temporal evolution of the membrane potential in terms of changes in ionic currents (chiefly Na\textsuperscript{+} and \textsuperscript{+}). 
 
@@ -836,9 +839,9 @@ def odeint(func, y0, t, n_, F_b):
     return _Tf_Integrator(n_, F_b).integrate(func,y0,t)
 \end{minted}
 
-\subsection*{Implementing the Dynamical Function for an Hodkin Huxley Neuron}
+\subsection*{Implementing a network of Hodgkin-Huxley neurons}
 
-Recall, each Hodgkin Huxley Neuron in a $n$ network has 4 main dynamical variables V, m, n, h which we represent as $n$ vectors. Now we need to add some more state variables for representing each synapse ie. the fraction of open channels. For each neuron, we will have Eq~(\ref{d3_5}),Eq~(\ref{d3_6}), Eq~(\ref{d3_7}) but Eq~(\ref{d3_1}) will be replaced by:
+Recall, each Hodgkin Huxley Neuron in a network with $n$ neurons has 4 dynamical variables V, m, n, h. Each of these variables were represented as $n$\textemdash dimensional vectors. Now we need to add some more state variables representing each synapse. The neuron receives excitatory and inhibitory inputs that are introduced as additional synaptic currents $I_{ach}$ and $I_{GABA}$. Equation~\ref{eq:HH} now reads, 
 
 \begin{eqnarray}C_m\frac{dV}{dt} = I_{injected} - I_{Na} - I_K - I_L - I_{ach} - I_{gaba}\end{eqnarray}
 
@@ -850,7 +853,7 @@ For each synapse, we will have Eq~(\ref{d4_1}), Eq~(\ref{d4_2}) and:
 
 \subsection*{Synaptic Memory Management}
 
-As discussed earlier, there are atmost $n^2$ synapses of each type but at a time, unless the network is fully connected/very dense, mostly we need a very small subset of these synapses. We could, in principle, calculate the dynamics of all $n^2$ but it would be pointless. So have to devise a matrix based sparse-dense coding system for evaluating the dynamics of these variables and also using their values. This will reduce memory usage and minimize number of calculations at the cost of time for encoding and decoding into dense data from sparse data and vice versa. This is why we use a matrix approach, so that tensorflow can speed up the process. 
+In a network with $n$ neurons, there are at most $n^2$ synapses of each type. The actual number may be much smaller in the network. but at a time, unless the network is fully connected/very dense, mostly we need a very small subset of these synapses. We could, in principle, calculate the dynamics of all $n^2$ but it would be pointless. So have to devise a matrix based sparse-dense coding system for evaluating the dynamics of these variables and also using their values. This will reduce memory usage and minimize number of calculations at the cost of time for encoding and decoding into dense data from sparse data and vice versa. This is why we use a matrix approach, so that tensorflow can speed up the process. 
 
 \subsection*{Defining the Connectivity}
 
