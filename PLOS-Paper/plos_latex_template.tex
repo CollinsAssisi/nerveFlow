@@ -204,7 +204,7 @@ Indian Institute of Science Education and Research, Pune, Maharashtra, India\\
 Neuronal networks are often modelled as systems of coupled, nonlinear, ordinary or
 partial differential equations. The number of differential equations used to model a
 network increases with the size of the network and the level of detail used to model
-individual neurons and synapses. As one scales up the size of the simulation it becomes important to use powerful computing platforms. Many tools exist that solve these equations numerically. However, these tools are often platform-specific. There is a high barrier of entry to developing flexible general purpose code that is platform independent and supports hardware acceleration on modern computing architectures such as GPUs/TPUs and Distributed Platforms. TensorFlow is a Python-based open-source package initially designed for machine learning algorithms, but it presents a scalable environment for a variety of computations including solving differential equations using iterative algorithms such as Runge-Kutta methods. In this article, organized as a series of tutorials, we demonstrate how to harness the power of TensorFlow’s data-flow programming paradigm to solve differential equations. Our tutorial is a simple exposition of numerical methods to solve ordinary differential equations using Python and TensorFlow. It consists of a series of Python notebooks that accompany this paper. Over the course of five sessions, we lead novice programmers from writing programs to integrate simple 1-dimensional differential equations using Python, to solving a large system (1000’s of differential equations) of coupled conductance-based neurons using a highly parallelised and scalable framework that uses Python and TensorFlow. Embedded in the tutorial is a physiologically realistic implementation of a network in the insect olfactory system. This system, consisting of multiple neuron and synapse types, can serve as a template to simulate other networks.
+individual neurons and synapses. As one scales up the size of the simulation it becomes important to use powerful computing platforms. Many tools exist that solve these equations numerically. However, these tools are often platform-specific. There is a high barrier of entry to developing flexible general purpose code that is platform independent and supports hardware acceleration on modern computing architectures such as GPUs/TPUs and Distributed Platforms. TensorFlow is a Python-based open-source package initially designed for machine learning algorithms, but it presents a scalable environment for a variety of computations including solving differential equations using iterative algorithms such as Runge-Kutta methods. In this article, organized as a series of tutorials, we present a simple exposition of numerical methods to solve ordinary differential equations using Python and TensorFlow. It consists of a series of Python notebooks that, over the course of five sessions, will lead novice programmers from writing programs to integrate simple 1-dimensional differential equations using Python, to solving a large system (1000’s of differential equations) of coupled conductance-based neurons using a highly parallelised and scalable framework. Embedded with the tutorial is a physiologically realistic implementation of a network in the insect olfactory system. This system, consisting of multiple neuron and synapse types, can serve as a template to simulate other networks.
 
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step. 
@@ -215,23 +215,21 @@ individual neurons and synapses. As one scales up the size of the simulation it 
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Motivation}
-Information processing in the nervous system spans a number of spatial and temporal scales. Millisecond fluctuations in ionic concentration at a synapse $10^-$ can cascade into long term (hours to days) changes in the behavior of the organism. Capturing the temporal scales and the details of the dynamics of the brain is a colossal computational endeavour. The dynamics of single and small networks of neurons can easily be simulated on a desktop computer with high level, readable, programing languages like Python. However, large networks of conductance based neurons are often simulated on clusters of CPUs. More recently, graphical processing units (GPUs) have become increasingly available due to lower (though still prohibitive) costs and from cloud services like Google Cloud and Amazon AWS among others. Writing code for each of these platforms is non trivial and requires a considerable investment of time to master different software tools. For example, implementing parallelism in multiple core shared memory architectures is often achieved using Open Multi-Processing (OpenMP) with C or C++. Message Passing Interface (MPI) libraries are used to implement code that computes over high performance computing clusters. Compute Unified Device Architecture (CUDA) allows users to run programs on NVIDIA's GPUs. However, code written for one platform cannot be used on other platforms. This poses a high barrier of entry for computational neuroscientists conversant with a high-level programing language, attempting to test simulations on different platforms. 
+Information processing in the nervous system spans a number of spatial and temporal scales. Millisecond fluctuations in ionic concentration at a synapse $10^-$ can cascade into long term (hours to days) changes in the behavior of the organism. Capturing the temporal scales and the details of the dynamics of the brain is a colossal computational endeavour. The dynamics of single and small networks of neurons can easily be simulated on a desktop computer with high level, readable, programing languages like Python. However, large networks of conductance based neurons are often simulated on clusters of CPUs. More recently, graphical processing units (GPUs) have become increasingly available due to lower (though still prohibitive) costs and from cloud services like Google Cloud and Amazon AWS among others. Writing code for each of these platforms is non trivial and requires a considerable investment of time to master different software tools. For example, implementing parallelism in multiple core shared memory architectures is often achieved using Open Multi-Processing (OpenMP) with C or C++. Message Passing Interface (MPI) libraries are used to implement code that computes over high performance computing clusters. Compute Unified Device Architecture (CUDA) allows users to run programs on NVIDIA's GPUs. However, code written for one platform cannot be used on other platforms. This poses a high barrier of entry for Neuroscientists conversant with a high-level programing language, attempting to test simulations on different platforms. 
 
-This is where TensorFlow, a Python library that was originally written to cater to machine learning applications~\cite{}, comes in handy. TensorFlow is highly scalable. Code written using TensorFlow functions can work seamlessly on single cores, multi-core shared memory processors, high-performance computer clusters, GPUs and Tensor processing units (TPUs - a propreitary chip designed by Google to work with TensorFlow). We found (as others have (ref??)), that TensorFlow functions can be used to implement numerical methods to solve ODEs. Doing so gave us a significant speed-up even on a single desktop with a multicore processor compared to similar Python code that did not use TensorFlow functions and operated on a single core. The code itself was highly readable and could be debugged with ease. Familiarity with the Python programming language and a brief introduction to some TensorFlow functions proved sufficient to write the code. Python is a an extremely popular programming language that used across number of disciplines and has found a broad user base among Biologists. We found that introducing a few TensorFlow constructs to Python, an easy addition to a familiar language, can bring readers to a point where they can simulate large networks of neurons in a platform independent manner. Further, by piggybacking on TensorFlow we will also be able to take advantage of an active TensorFlow developer community in addition to a wide range of Python libraries that are already available. 
+This is where TensorFlow, an open source platform for machine learning~\cite{}, comes in handy. TensorFlow is highly scalable. Code written using TensorFlow functions can work seamlessly on single cores, multi-core shared memory processors, high-performance computer clusters, GPUs and Tensor processing units (TPUs - a propreitary chip designed by Google to work with TensorFlow). We found (as others have (ref??)), that TensorFlow functions can be used to implement numerical methods to solve ODEs. Doing so gave us a significant speed-up even on a single desktop with a multicore processor compared to similar Python code that did not use TensorFlow functions and operated on a single core(Figure~\ref{fig:comparison}). The code itself was highly readable and could be debugged with ease. Familiarity with the Python programming language and a brief introduction to some TensorFlow functions proved sufficient to write the code. Python is a an extremely popular programming language that used across number of disciplines and has found a broad user base among Biologists(ref PLOS paper and scientific computing book). We found that introducing a few TensorFlow functions in Python, an easy addition to a familiar language, can bring readers to a point where they can simulate large networks of neurons in a platform independent manner. Further, by piggybacking on TensorFlow we will also be able to take advantage of an active TensorFlow developer community in addition to a wide range of Python libraries that are already available. 
 \begin{figure}
 \includegraphics[scale=0.7]{Figures/Bench.pdf} 
 \caption{Comparison of Python and Tensorflow on an 8 core, 2.1GHz desktop with 2 Intel Xeon E5-2620 processors}
 \label{fig:comparison}
 \end{figure}
 
-Note on GPU/TPU cloud
-
-These tutorials were written to address a group of undergraduate students in our institute. These students came from diverse backgrounds and had a basic introduction to Python during their first semester. They were interested in working on problems in Computational Neuroscience. Our goal was to introduce them to some of the numerical tools and mathematical models in Neuroscience while also allowing them to tinker with advanced projects that required writing code that ran on distributed systems. We were careful to keep the innards of the code visible \textemdash the form of the integrator, the specification of the differential equations and the ability to modify the code to suit their needs was particularly important. Towards the end of the tutorial, that many students managed to devour within a day or two, they were in a position to write codes simulating networks of neurons in the antennal lobe, firing rate models of grid cells, detailed networks of stellate cells and inhibitory interneurons and synaptic plasticity. 
+These tutorials were written to address the needs of a group of undergraduate students in our institute. These students came from diverse backgrounds and had a basic introduction to Python during their first semester. They were interested in working on problems in Computational Neuroscience. Our goal was to introduce them to some of the numerical tools and mathematical models in Neuroscience while also allowing them to tinker with advanced projects that required writing code that ran on distributed systems. We were careful to keep the innards of the code visible \textemdash the form of the integrator, the specification of the differential equations and the ability to modify the code to suit their needs was particularly important. Towards the end of the tutorial, that many students managed to devour within a day or two, they were in a position to write codes simulating networks of neurons in the antennal lobe (the insect equivalent of the olfactory bulb in mammals), firing rate models of grid cells, detailed networks of stellate cells and inhibitory interneurons and networks with plastic synapses. 
 
 %~\cite{bib1}
 
 \section*{How to use this Tutorial}
-A reader familiar with Python will find this tutorial accessible. We use a number of Numpy and Matplotlib functions to simulate and display figures. These libraries are well documented with excellent introductory guides. During Day 1 of this tutorial we introduce numerical integration using Python without using any TensorFlow functions. On Day 2 we use TensorFlow functions to implement the integrator. Day 5 talks about memory management in TensorFlow. On Days 3 and 4 we use the code developed on Days 1 and 2 to simulate networks of conductance based neurons. Readers who are interested in solving differential equations in other domains will find the tutorial on Days 1, 2 and 5 self-contained and without reference to tutorials on Days 3 and 4.  Our simulations were run on a Linux desktop running Ubuntu xx.xx and on Google Cloud. We recommend that readers install Python 3.6 or above, Jupyter Notebook, Numpy Python package, Matplotlib Python package, and TensorFlow 1.13 or above using the Anaconda distribution of Python 3. The tutorials are linked in the supplementary material as Python notebooks (.ipynb files) that can be accessed using Jupyter and as .html files that can be read using any browser.
+A reader familiar with Python will find this tutorial accessible. We use a number of Numpy (ref Numpy docs) and Matplotlib (ref Matplotlib docs) functions to simulate and display figures. These libraries are well documented with excellent introductory guides. During Day 1 of this tutorial we introduce numerical integration using Python without using any TensorFlow functions. On Day 2 we use TensorFlow functions to implement the integrator. Day 5 talks about memory management in TensorFlow. On Days 3 and 4 we use the code developed on Days 1 and 2 to simulate networks of conductance based neurons. Readers who are interested in solving differential equations in other domains will find the tutorial on Days 1, 2 and 5 self-contained.  Our simulations were run on a Linux desktop running Ubuntu xx.xx and on Google Cloud. We recommend that readers install Python 3.6 or above, Jupyter Notebook, Numpy Python package, Matplotlib Python package, and TensorFlow 1.13 or above using the Anaconda distribution of Python 3. The tutorials are linked in the supplementary material as Python notebooks (.ipynb files) that can be accessed using Jupyter and as .html files that can be read using any browser.
 % For figure citations, please use "Fig" instead of "Figure". Fig~\ref{fig1}
 
 % Place figure captions after the first paragraph in which they are cited.
@@ -242,19 +240,19 @@ A reader familiar with Python will find this tutorial accessible. We use a numbe
 %\end{figure}
 
 \section*{Day 1: Solving ODEs using Python}
-In this tutorial we are interested in solving ordinary differential equations of the form,
+In this tutorial we are interested in solving ordinary differential equations (ODEs) of the form,
 \begin{equation}
 \frac{dx}{dt} = f(x, t)
 \label{eq:ode}
 \end{equation}
-where, $x$ is an $N-$dimensional vector and $t$ typically stands for time. The function $f(x,t)$ may be a nonlinear function of $x$ that explicitly depends on $t$. In addition to specifying the form of the differential equation, one must also specify the value of $x$ at a particular time point. Say, $x=x_{0}$ at $t = t_0$. It is often not possible to derive a closed form solution for~\ref{eq:ode}. Therefore numerical methods to solve these equations are of great importance. One such example at the core of our tutorial are the Hodgkin-Huxley equations (ref) describing the dynamics of action potential generation and propagation in the giant axon of the squid. Alan Hodgkin and Andrew Huxley arrived at these equations after a series of clever experiments that tested the limits of experimental technology available at the time. It also tested the limits of computational tools available. The form of the differential equations they derived contained nonlinearities that made it analytically intractable. In order to compute action potentials, Huxley numerically intergrated the equations using a hand operated Bunsviga mechanical calculator. The calculation took nearly three weeks to complete (ref). They used a numerical method due to Hartree (ref 1932)integrate the differential equations. Each iteration that calculated the value of the solution at subsequent time points consisted of 9 steps. In calculating the solution over time, they also varied the step size such that dynamics occurring over faster time scales (such as the rising phase of the action potential) were calculated with time step sizes of $0.1-0.2$ms while slower dynamics (such as the small highly damped oscillation following a spike) was calculated with time steps that were an order of magnitude higher ($1$ms).
+where, $x$ is an $N-$dimensional vector and $t$ typically stands for time. The function $f(x,t)$ may be a nonlinear function of $x$ that explicitly depends on $t$. In addition to specifying the form of the differential equation, one must also specify the value of $x$ at a particular time point. Say, $x=x_{0}$ at $t = t_0$. It is often not possible to derive a closed form solution for the equation(\ref{eq:ode}). Therefore numerical methods to solve these equations are of great importance. One example of ODEs at the core of our tutorial are the Hodgkin-Huxley equations (ref) describing the dynamics of action potential generation and propagation in the giant axon of the squid. Alan Hodgkin and Andrew Huxley arrived at these equations after a series of clever experiments that tested the limits of experimental technology available at the time. It also tested the limits of computational tools available (ref). The form of the differential equations they derived contained nonlinearities that made it analytically intractable. In order to compute action potentials, Huxley numerically intergrated the equations using a hand operated Bunsviga mechanical calculator. The calculation took nearly three weeks to complete (ref). They used a numerical method due to Hartree (ref 1932) to integrate the differential equations. Each iteration that calculated the value of the solution at subsequent time points consisted of 9 steps. In calculating the solution over time, they also varied the step size such that dynamics occurring over faster time scales (such as the rising phase of the action potential) were calculated with time step sizes of $0.1-0.2$ms while slower dynamics (such as the small highly damped oscillation following a spike) was calculated with time steps that were an order of magnitude higher ($1$ms).
 
-In this tutorial, we illustrate two numerical methods to iteratively compute each time step of the solution. The first is a simple one-step method known as the Euler's method of integration. The second is another popular method, the Runge-Kutta method of order 4 (abberviated as RK4) that is more accurrate than the Euler's method, but requires additional computations to calculate subsequent time steps. 
+In this tutorial, we illustrate two numerical methods to iteratively compute each time step of the solution. The first is a simple one-step method known as the Euler's method of integration. The second is another popular method, the Runge-Kutta method of order 4 (abberviated as RK4) that is more accurrate than the Euler's method, but requires additional computations to calculate the value of the solution at each time step. 
 
 \subsection*{Euler's Method for Numerical Integration}
-Our goal is to solve~\ref{eq:ode} - calculate $x(t)$ given an initial condition $x(t_n)=x_{n}$. The simplest method to solve~\ref{eq:ode} numerically is the Euler's method. Here we start from $x(t=t_{0})=x_{0}$ and compute the solution at subsequent time points ($t_{0}+\epsilon,t_{0}+2\epsilon,t_{0}+3\epsilon \dots $) iteratively. Each step of the computation is done using the same formula that can be derived by truncating a Taylor series after the first term. That is, the solution at time $t+\epsilon$ is given by,
+Our goal is to solve (\ref{eq:ode}) - calculate $x(t)$ given an initial condition $x(t_n)=x_{n}$. The simplest method to solve (\ref{eq:ode}) numerically is the Euler's method. Here we start from $x(t=t_{0})=x_{0}$ and compute the solution at subsequent time points ($t_{0}+\epsilon,t_{0}+2\epsilon,t_{0}+3\epsilon \dots $) iteratively. Each step of the computation is done using the same formula that can be derived by truncating a Taylor series after the first term. That is, the solution at time $t_{0}+\epsilon$ is given by,
 \begin{equation}
-x(t+\epsilon) = x_{0} + \epsilon\frac{dx}{dt} + \mathcal{O}(\epsilon^2)
+x(t_{0}+\epsilon) = x_{t){0}} + \epsilon\frac{dx}{dt} + \mathcal{O}(\epsilon^2)
 \label{eq:euler}
 \end{equation}
 where $\frac{dx}{dt}=f(x,t)$. The higher order terms $\mathcal{O}(\epsilon^2)$ are ignored in this approximation. 
@@ -269,7 +267,7 @@ A geometric interpretation of the Euler's method is shown in figure~\ref{fig:eul
 
 \subsection*{Implementation of Euler's Method in Python}
 
-Let $\frac{dx}{dt}=5x$. We wish to calculate $x(t)$ over the interval $t\in[0,2)$  given the initial condition $x(0)=1$. The exact solution of this equation is $x(t) = e^{5t}$. In our implementation of Euler's method, we used the Python library Numpy to create and operate on arrays, and the plotting library Matplotlib, to display the results. We implement the Euler's Method in Python as follows:
+Let $\frac{dx}{dt}=5x$. We wish to calculate $x(t)$ over the interval $t\in[0,2)$  given the initial condition $x(0)=1$. The exact solution of this equation is $x(t) = e^{5t}$. In our implementation of Euler's method, we used the Python library Numpy to create and operate on arrays, and the plotting library Matplotlib, to display the results. We implement Euler's Method in Python as follows:
 
 \begin{minted}[linenos]{python}
 import numpy as np
@@ -294,7 +292,7 @@ The exact solution and the numerical solution are compared in Fig~\ref{fig:euler
 
 \subsection*{Implementing Euler's method to solve a system of differential equations}
 
-Euler's Method can also be easily applied to systems of equations. The Initial Value problem now becomes:
+The implementation above can be easily extended to systems of equations. The Initial Value problem now becomes:
 
 \begin{eqnarray}\frac{d\vec{X}}{dt} = \vec{f}(\vec{X}, t)\end{eqnarray}
 \begin{eqnarray}\vec{X}(t_o) = \vec{X_o}\end{eqnarray}
@@ -318,7 +316,7 @@ for i in range(1,t.shape[0]):
 \end{minted}
 
 \subsection*{A generalized code to the Euler method}
-Here we rewrite the code in a modular fashion and cast the integrator as a function that takes in 3 inputs ie. the function $\vec{f}(\vec{y},t)$ where $\frac{d\vec{y}}{dt}=f(\vec{y},t)$, the time array, and initial vector $\vec{y}_{0}$. We will find this form to be particularly useful when we use tensorflow constructs to code the integrator. Further, it allows us to write multiple integrating functions (for example Euler or RK4) within the same class and call a specific integrator as needed. In addition we also introduce a function to ensure that the correct inputs are given to the integrator failing which an error message is generated. 
+Here we rewrite the code in a modular fashion and cast the integrator as a function that takes in 3 inputs ie. the function $\vec{f}(\vec{y},t)$ where $\frac{d\vec{y}}{dt}=f(\vec{y},t)$, the time array, and initial vector $\vec{y}_{0}$. We will find this form to be particularly useful when we use TensorFlow functions to code the integrator. Further, it allows us to write multiple integrating functions (for example Euler or RK4) within the same class and call a specific integrator as needed. In addition we also introduce a function to ensure that the correct inputs are given to the integrator failing which an error message is generated. 
 
 \subsubsection*{Algorithm}
 
@@ -366,9 +364,9 @@ This method is called the second order Runge-Kutta method or the midpoint method
 \caption{Second order Runge-Kutta method}
 \label{fig:RK2}
 \end{figure}
-Figure~\ref{fig:RK2} is a schematic description of the second order Runge-Kutta methd. The blue curve denotes a solution of some differential equation. The goal is to calculate 
+Figure~\ref{fig:RK2} is a schematic description of the second order Runge-Kutta method. The blue curve denotes a solution of some differential equation. 
 
-But we do not have to stop here. By further rewriting the equation, we can cancel higher order error terms and reach the most commonly used fourth-order Runge-Kutta Methods or RK4 method, which is described below:
+We can reduce errors by calculating additional derivatives. One of the most commonly used integrators is the fourth-order Runge-Kutta Method or RK4 method, that is implemented below:
 
 \begin{eqnarray}k_1=f(x_n,t_n)\end{eqnarray}
 \begin{eqnarray}k_2=f(x_n+\epsilon\frac{k_1}{2},t_n+\frac{\epsilon}{2})\end{eqnarray}
@@ -376,12 +374,11 @@ But we do not have to stop here. By further rewriting the equation, we can cance
 \begin{eqnarray}k_4=f(x_n+\epsilon k_3,t_n+\epsilon)\end{eqnarray}
 \begin{eqnarray}y_{n+1}=y_n+\frac{\epsilon}{6}(k_1+2 k_2+2 k_3+k_4)+\mathcal{O}(\epsilon^5)\end{eqnarray}
 
-Note that this numerical method is again easily converted to a vector algorithm by simply replacing $x_i$ by the vector $\vec{X_i}$. This method is what we will use to simulate our networks.
-
+Note that this numerical method is again easily converted to a vector algorithm by simply replacing $x_i$ by the vector $\vec{X_i}$. We will use this method to simulate networks of neurons.
 
 \subsection*{Generalized RK4 Method in Python}
 
-We can now modify the Euler Integration code implemented earlier iwith a generalized function for RK4 that takes three inputs \textemdash the function $f(\vec{y},t)$ when $\frac{d\vec{y}}{dt}=f(\vec{y},t)$, the time array, and an initial vector $\vec{y_0}$. The code can be updated as follows,
+We can now modify the Euler Integration code implemented earlier with a generalized function for RK4 that takes three inputs \textemdash the function $f(\vec{y},t)$ when $\frac{d\vec{y}}{dt}=f(\vec{y},t)$, the time array, and an initial vector $\vec{y_0}$. The code can be updated as follows,
 
 \begin{minted}[linenos]{python}
 # RK4 Integration Steps replace the Euler's Updation Steps
@@ -393,11 +390,11 @@ k4 = func(y[:,i] + time_delta_grid[i] * k3, t + time_delta_grid[i])
 y[:,i+1]= (k1 + 2 * k2 + 2 * k3 + k4) * (time_delta_grid[i] / 6) + y[:,i]
 \end{minted}
 
-As an \textbf{Exercise}, try to solve the equation of a simple pendulum and observe its dynamics using Euler Method and RK4 methods. The equation of motion of a simple pendulum is given by: 
+As an \textbf{Exercise}, solve the equation of a simple pendulum and observe its dynamics using the Euler and RK4 methods. Change the time step ($\epsilon$) and compare the resulting solutions. The equation of motion of a simple pendulum is given by: 
 
 \begin{eqnarray}\frac{d^2s}{dt^2}=L\frac{d^2\theta}{dt^2}=-g\sin{\theta}\end{eqnarray}
 
-where $L$ = Length of String and $\theta$ = angle made with vertical. To solve this second order differential equation you may use a dummy variable $\omega$ representing angular velocity such that:
+where $L$ = Length of String and $\theta$ = angle made with vertical. To solve this second order differential equation convert it to a system of first order ODEs using a variable $\omega$ that represents the angular velocity.
 
 \begin{eqnarray}\frac{d\theta}{dt}=\omega \end{eqnarray}
 \begin{eqnarray}\frac{d\omega}{dt}=-\frac{g}{L}\sin{\theta} \end{eqnarray}
@@ -406,7 +403,7 @@ where $L$ = Length of String and $\theta$ = angle made with vertical. To solve t
 
 \subsection*{An Introduction to TensorFlow}
 
-TensorFlow is an open-source library that was developed by researchers and engineers in the Google Brain team. TensorFlow has a number of functions that make it particularly suitable for machine learning applications. However, it is primarily an interface for numerical computation (ref:TensorFlow whitepaper). All computations in TensorFlow are specified as directed graphs (nodes connected by arrows) known as data flow graphs. Nodes are operations such as addition, multiplication etc. The incoming edges for each node are tensors (scalars, vectors, matrices and higher dimensional arrays) that are the actual values that are operated upon. The output is also a tensor that results from computation. For example, consider the following computation where two vectors $a$ and $b$ serve as inputs to the node, a matrix multiplication operation, that produces a matrix $c$ as output.
+TensorFlow is an open-source library that was developed by researchers and engineers in the Google Brain team. TensorFlow has a number of functions that make it particularly suitable for machine learning applications. However, it is primarily an interface for numerical computation (ref:TensorFlow whitepaper). All computations in TensorFlow are specified as directed graphs (nodes connected by arrows) known as data flow graphs. Nodes are operations such as addition, multiplication etc. The incoming edges for each node are tensors (scalars, vectors, matrices and higher dimensional arrays), the actual values that are operated upon. The output is also a tensor that results from the computation. For example, consider the following computation where two vectors $a$ and $b$ serve as inputs to the node, a matrix multiplication operation, that produces a matrix $c$ as output.
 
 \begin{figure}[H]
 \begin{center}
@@ -416,7 +413,7 @@ TensorFlow is an open-source library that was developed by researchers and engin
 \end{center}
 
 \end{figure}
-The following program implements the computation described in~\ref{fig:compGraph}.
+The following program implements the computation described in Figure(\ref{fig:compGraph}).
 
 \begin{minted}[linenos]{python}
 # Creating nodes in the computation graph 
@@ -435,8 +432,8 @@ print(output)
 \end{minted}
 By specifying the computation graph we also specify the dependcies among the nodes. One can thus split the graph into smaller chunks or sub-graphs that can be independently computed by different devices that coordinate with each other. This makes it possible to develop programs that are device independent and scalable across CPUs, GPUs , TPUs and clusters of servers. 
 
-\subsection*{Efficient recursion in TensorFlow}
-Numerical integration is essentially a recursive process over a time array $[t_{0},t_{1},t_{2},\dots t_{n}]$. The updation rules for both the Euler and the RK4 integrators can just be written as a recursive function $F$ such that $X_{i+1}=F(X_i,t_i,\epsilon_i)$. The solution of the differential equation is the array $[X_0,F(X_0,t_0,\epsilon_0),F(F(X_0,t_0,\epsilon_0),t_1,\epsilon_1)...]$. We us the TensorFlow function \texttt{tf.scan} to iterate over the time array. The arguments of \texttt{tf.scan} are a recursive function, the list to iterate over and the initial value. If the initial value is not specified \texttt{tf.scan} uses the first element of the list as an initializer. As an example, consider the following program that  calculates the cumulative sum over a list. Every step involves adding an element from the list onto the last addition. 
+\subsection*{Efficient recursion with TensorFlow}
+Numerical integration is essentially a recursive process over a time array $[t_{0},t_{1},t_{2},\dots t_{n}]$. The rules to update both the Euler and the RK4 integrators can be written as a recursive function $F$ such that $X_{i+1}=F(X_i,t_i,\epsilon_i)$. The solution of the differential equation is the array $[X_0,F(X_0,t_0,\epsilon_0),F(F(X_0,t_0,\epsilon_0),t_1,\epsilon_1)...]$. We us the TensorFlow function \texttt{tf.scan} to iterate over the time array. The arguments of \texttt{tf.scan} are a (i)a recursive function (ii)the list to iterate over and (iii)the initial value. If the initial value is not specified \texttt{tf.scan} uses the first element of the list as an initializer. As an example, consider the following program that  calculates the cumulative sum over a list. Every step involves adding an element from the list onto the last addition. 
 
 \begin{minted}[linenos]{python}
 # define the recursive function that takes in two values the
@@ -462,9 +459,9 @@ print(output_b)
 #[ 6  8 11 15 20 26]
 \end{minted}
 
-\textbf{Exercise} Use \texttt{tf.scan()} to compute the Fibonacci sequence. 
+\textbf{Exercise} Use \texttt{tf.scan} to compute the Fibonacci sequence. 
 
-\subsection*{Euler Integration Function in TensorFlow}
+\subsection*{Euler Integration Function with TensorFlow}
 We now implement Euler's method using \texttt{tf.scan} to iterate over the time array. Note that the function \texttt{scan\_func} that defines each step of Euler's method, is now an input to \texttt{tf.scan}.
 
 \begin{minted}[linenos]{python}
@@ -510,7 +507,7 @@ with tf.Session() as sess:
     state = sess.run(state)
 \end{minted}
 
-\subsection*{RK4 Integration Function in TensorFlow}
+\subsection*{RK4 Integration Function with TensorFlow}
 
 Now, we implement the RK4 integrator. Note that here we replace the single step iterator used for the Euler's with a four step RK4 iterator. In addition, to make the code more modular, we define a function \texttt{\_step\_func()} that is called by \texttt{scan\_func} and calculates the next step of the RK4 integrator. The rest of the program remains the same as the Euler's method implemented above.
 
@@ -533,7 +530,7 @@ def integrate(self, func, y0, t):
         return tf.add_n([k1, 2 * k2, 2 * k3, k4]) * (dt_cast / 6)
 \end{minted}
 
-\textbf{Exercise}, Simulate the non-linear Lorentz Attractor using Euler Method and RK4 on TensorFlow which is given by the equations:
+\textbf{Exercise}, Simulate the non-linear Lorentz Attractor using the Euler and RK4 with TensorFlow. The equations of the Lorenz Attractor are given by,
 
 \begin{eqnarray}\frac{dx}{dt}=\sigma(y-x) \end{eqnarray}
 \begin{eqnarray}\frac{dy}{dt}=x(\rho-z)-y \end{eqnarray}
@@ -551,10 +548,10 @@ Use the values $\sigma =10$, $\beta =\frac{8}{3}$, $\rho =28$. Simulate these eq
 \end{figure}
 
 \section*{Day 3: Neurons in Silicon}
-The electric potential measured across the membranes of excitable cells, such as neurons or heart cells, can undergo transient changes when perturbed by external inputs. When the inputs to a neuron are sufficiently large these transient changes can regeneratively build up into a large deviation from the resting state known as an action potential. Action potentials propagate along the axon, largely undiminished, and perturb post-synaptic neurons. The Hodgkin-Huxley model is a system of differential equations that describe the generation an action potential and its propagation along the axon.
+The electric potential measured across the membranes of excitable cells, such as neurons or heart cells, can undergo transient changes when perturbed by external inputs. When the inputs to a neuron are sufficiently large these transient changes can regeneratively build up into a large deviation from the resting state known as an action potential. Action potentials propagate undiminished along the axon and perturb post-synaptic neurons. The Hodgkin-Huxley model is a system of differential equations that describe the generation an action potential and its propagation along the axon. We provide only a brief overview of the Hodgkin-Huxley model. A number of classic references [ref abbott Johnston and wu] and the original papers by Hodgkin and Huxley [ref] chronicle the history and the details of the model. An excellent set of MOOCS [Fairhall and Gerstner] and the accompanying textbooks [Abbott Gerstner] give an accessible introduction to the topic
 
 \subsection*{What is the Hodgkin Huxley Neuron Model?}
-The cell membrane, a 5nm thick lipid bilayer, separates the inside from the outside of the neuron. The membrane is largely impermeable to charged ions present on either side. The concentration of Na\textsuperscript{+} ions outside the cell is greater than its concentration inside, while K\textsuperscript{+} ions are relatively abundant inside compared to the outside. In addition to these there are chloride (Cl\textsuperscript{-}), calcium (Ca\textsuperscript{2+}) and magnesium ions (Mg\textsuperscript{+}) that populate the cellular milieu. The differences in ionic abundances across the membrane causes a net accumulation of positive ions on one side of the membrane and negative ions on the other, and thus a potential difference across the membrane. Embedded on the membrane are ion channels that are highly selective to the ion species it lets across. In the squid axon, Hodgkin and Huxley found that there were only two types of ion channels (Na\textsuperscript{+} and K\textsuperscript{+}), in addition to a non-specific leak channel that, most likely, allowed the passage of Cl\textsuperscript{-} ions. The Hodgkin-Huxley model of neurons can be understood with the help of an equivalent electrical circuit~\ref{fig:HH}) The cell membrane acts as a capacitor. An total injected current ($I$) can be written as the sum of the capacitive current $I_{C}$, ionic currents $I_{Na}$ and $I_{K}$ and the leak current $I_L$.
+The cell membrane, a 5nm thick lipid bilayer, separates the inside from the outside of the neuron. The membrane is largely impermeable to charged ions present on either side. The concentration of Na\textsuperscript{+} ions outside the cell is greater than its concentration inside, while K\textsuperscript{+} ions are relatively abundant inside compared to the outside. In addition to these there are chloride (Cl\textsuperscript{-}), calcium (Ca\textsuperscript{2+}) and magnesium ions (Mg\textsuperscript{+}) that populate the cellular milieu. The differences in ionic abundances across the membrane cause a net accumulation of positive ions on one side of the membrane and negative ions on the other, and thus a potential difference across the membrane. Embedded on the membrane are ion channels that are highly selective to the ion species it lets across. In the squid axon, Hodgkin and Huxley found that there were only two types of ion channels (Na\textsuperscript{+} and K\textsuperscript{+}), in addition to a non-specific leak channel. The Hodgkin-Huxley model of neurons can be understood with the help of an equivalent electrical circuit Figure(\ref{fig:HH}) The cell membrane acts as a capacitor. An total injected current ($I$) can be written as the sum of the capacitive current $I_{C}$, ionic currents $I_{Na}$ and $I_{K}$ and the leak current $I_L$.
 
 \begin{figure}[H]
 \begin{center}
@@ -571,7 +568,7 @@ where,
 \begin{eqnarray}
 C_m = 1 \mu F/cm^2 \\
 I_{Na} = g_{Na}(u-E_{Na})\\
-I_{K} = g_{k}(u-E_K)
+I_{K} = g_{k}(u-E_K)\\
 I_{L} = g_{L}(u-E_L)
 \end{eqnarray}
 The equation describing the membrane potential can thus be written as follows,
@@ -580,9 +577,7 @@ The equation describing the membrane potential can thus be written as follows,
 C_m\frac{du}{dt}=−I_{Na}(t)−I_{K}(t)−I_{L}(𝑡)+I(t)
 \end{eqnarray}
 Hodgkin and Huxley discovered that the $Na$ and the $K$ channels do not act as Ohmic conductances, but are modulated by the potential across the membrane. 
-Changes in potential had a nonlinear effect on flow of ionic currents. They fitted their experimental results to a system of differential equations that described the temporal evolution of the membrane potential in terms of changes in ionic currents (chiefly Na\textsuperscript{+} and \textsuperscript{+}). 
-
-Hogkin and Huxley found the Na and K ion currents to be dependent on the voltage and of the form given below:
+Changes in potential had a nonlinear effect on flow of ionic currents. Based in their experimental results they obtained a system of differential equations that described the temporal evolution of the membrane potential in terms of changes in ionic currents (chiefly Na\textsuperscript{+} and K\textsuperscript{+}). 
 
 \begin{eqnarray}\label{d3_2}I_{Na} = g_{Na}m^3h(u−E_{Na})\end{eqnarray}
 \begin{eqnarray}\label{d3_3}I_K = g_Kn^4(u−E_K)\end{eqnarray}
@@ -594,11 +589,11 @@ where $E_{Na}=50\ mV$, $E_K = -95\ mV$ and $E_L=-55\ mV$ are the reversal potent
 \begin{eqnarray}\label{d3_6}\frac{dh}{dt} = - \frac{1}{\tau_h}(h-h_0)\end{eqnarray}
 \begin{eqnarray}\label{d3_7}\frac{dn}{dt} = - \frac{1}{\tau_n}(n-n_0)\end{eqnarray}
 
-where $\tau_m$, $\tau_h$ and $\tau_n$ are voltage dependent time constants and $m_0$, $h_0$ and $n_0$ are voltage dependent asymptotic gating values. These functions are empirically determined for different types of neurons. For an example, take a look at figure.
+where $\tau_m$, $\tau_h$ and $\tau_n$ are empirically determined voltage dependent time constants and $m_0$, $h_0$ and $n_0$ are voltage dependent asymptotic gating values.
 
 \subsection*{Implementing the Hodgkin-Huxley neuron model}
 
-The Hodgkin Huxley Neuron has a variables that are updated at each integration time step - the membrane potential, $V$, the sodium activation gating Variable, $m$, the sodium inactivation gating Variable, $h$, and the potassium channel gating Variable, $n$. The dynamics are given by Eq~(\ref{d3_1}), Eq~(\ref{d3_5}),Eq~(\ref{d3_6}) and Eq~(\ref{d3_7}). In the following code, we define the parameters associated with the conductances, including the formulae for $\tau_{m}$, $\tau_{h}$, $\tau_{n}$ and the voltage dependent steady state values of the gating variables. 
+The variable of the Hodgkin Huxley neuron model has that are updated at each integration time step are, the membrane potential, $V$, the sodium activation gating Variable, $m$, the sodium inactivation gating Variable, $h$, and the potassium channel gating Variable, $n$. The dynamics are given by Eq~(\ref{d3_5}),Eq~(\ref{d3_6}) and Eq~(\ref{d3_7}). In the following code, we define the parameters associated with the conductances, including the formulae for $\tau_{m}$, $\tau_{h}$, $\tau_{n}$ and the voltage dependent steady state values of the gating variables. 
 
 \begin{minted}[linenos]{python}
 # Step 1: Defining Parameters of the Neuron 
@@ -672,14 +667,14 @@ Here we illustrate some simple steps that can be used to simulate populations of
 TensorFlow has built-in functions that speed up Tensor computations using available multi-cores, and GPU/TPU setups. There are two major parts of the code where such a speed-up can be effected
 \begin{enumerate}
 \item \textbf{RK4 iterations} Our implementation of the integrator utilizes Tensors as inputs. 
-\item \textbf{Functional Evaluations:} The form of the equations that describe the neuronal dynamics,  are common across neurons. Only the parameters for differ across neurons.
+\item \textbf{Functional Evaluations:} The form of the equations that describe the neuronal dynamics,  are common across neurons. Only the parameters for differ across neurons. This can be used to `vectorize' the equations.
 \end{enumerate}
 
 Say $\vec{X}=[V,m,n,h]$ is the state vector of a single neuron and its dynamics are defined using parameters $C_m,g_K,...E_L$ equations of the form: 
 
 \begin{eqnarray}\frac{d\vec{X}}{dt} = [f_1(\vec{X},C_m,g_K,...E_L),f_2(\vec{X},C_m,g_K,...E_L)...f_m(\vec{X},C_m,g_K,...E_L)]\end{eqnarray}
 
-We can convert these equations to a form in which all evaluations are done as vector calculations and NOT scalar calculations. Despite the parameters being different, the functional forms of the equations are similar for the same state variable of different neurons. Thus, the trick is to reorganize $\mathbf{X}$ as $\mathbf{X'}=[(V_1,V_2,...V_n),(m_1,m_2,...m_n),(h_1,h_2,...h_n),(n_1,n_2,...n_n)]=[\vec{V},\vec{m},\vec{h},\vec{n}]$. And the parameters as $\vec{C_m},\vec{g_K}$ and so on.
+We can convert these equations to a form in which all evaluations are done as vector calculations and NOT scalar calculations. Despite the parameters being different, the functional forms of the equations are similar for the same state variable of different neurons. Thus, the trick is to reorganize $\mathbf{X}$ as $\mathbf{X'}=[(V_1,V_2,...V_n),(m_1,m_2,...m_n),(h_1,h_2,...h_n),(n_1,n_2,...n_n)]=[\vec{V},\vec{m},\vec{h},\vec{n}]$. And the parameters as $[\vec{C_m},\vec{g_K}] = [C_{m_{1}}\dots C_{m_{n}},g_{K_{1}}\dots g_{K_{n}}]$ and so on.
 
 The advantage of this re-ordering is that the differential equation of the form,
 \begin{eqnarray}\frac{dV_i}{dt}=f(V_i,m_i,h_i,n_i,C_{m_i},g_{K_i}...)\end{eqnarray}
@@ -688,12 +683,12 @@ is now easily parallelizable using a vector computation of the form,
 
 \begin{eqnarray}\frac{d\vec{V}}{dt}=f(\vec{V},\vec{m},\vec{h},\vec{n},\vec{C_m},\vec{g_K}...)\end{eqnarray}
 
-Thus we can do the calculations as:
+The equations can now be written in the form,
 \begin{eqnarray}\frac{d\mathbf{X'}}{dt}= \Big[\frac{d\vec{V}}{dt},\frac{d\vec{m}}{dt},\frac{d\vec{h}}{dt},\frac{d\vec{n}}{dt}\Big]\end{eqnarray}
 
 \subsubsection*{Implementation}
 
-Notice that the functions calculating gating dynamics and channel currents already are capable of vector input and output, so we do not need to change these. However, the parameters are not defined as vectors.
+Notice that the functions calculating the gating dynamics and channel currents are already capable of vector input and output, so we do not need to change these. However, the parameters were not defined as vectors in our earlier implementation.
 
 \begin{minted}[linenos]{python}
 n_n = 20 # number of simultaneous neurons to simulate
@@ -723,13 +718,12 @@ def dXdt(X, t):
     return out
 y0 = tf.constant([-71]*n_n+[0,0,0]*n_n, dtype=tf.float64)
 \end{minted}
-
-
-The firing frequency as a function of the input is shown in Figure
+The firing frequency as a function of the input is shown in Figure(\ref{fig:freq}). The code to generate the firing rate is below.
 \begin{center}
 \begin{figure}
 \includegraphics[scale=0.6]{Figures/fig12.pdf} 
-%\caption{•}
+\caption{ Firing frequency of the Hodgkin-Huxley neuron as a function of input amplitude}
+\label{fig:freq}
 \end{figure}
 \end{center}
 
@@ -742,31 +736,31 @@ In this section we simulate a network of neurons interacting via synapses. Each 
 
 \subsubsection*{Modelling Synapses}
 
-The synaptic current ($I_{syn}$) depends on the difference between its reversal potential ($E_{syn}$) and the actual value of the membrane potential ($u$). The synaptic current due to neurotransmitter release into the synaptic cleft following an action potential is given by,
+The synaptic current ($I_{syn}$) depends on the difference between the reversal potential ($E_{syn}$) and the value of the membrane potential ($u$). The synaptic current due to neurotransmitter release into the synaptic cleft following an action potential is given by,
 \begin{equation}
 I_{syn}(t)=g_{syn}(t)(u(t)−E_{syn})
 \label{eq:syncurr}
 \end{equation}
-When the transmitter binds to postsynaptic receptors it causes a transient change in the conductance $g_syn$. To capture the dynamics of $g_syn$, one models the system using a simple kinetic model where the receptors can be either in an open or a closed state. The transition between the states is proportional to the concentration of the neurotransmitter $[T]$ in the cleft. 
+When the transmitter binds to postsynaptic receptors it causes a transient change in the conductance $g_{syn}$. To capture the dynamics of $g_{syn}$, one models the system using a simple kinetic model where the receptors can be either in an open or a closed state. The transition between the states is proportional to the concentration of the neurotransmitter $[T]$ in the cleft. 
 \begin{equation}
 \mathrm{C}\underset{\beta}{\stackrel{\alpha[T]}{\rightleftharpoons}} \mathrm{O}
 \end{equation}
 This may be rewritten in the form of a differential equation.
 \begin{eqnarray}\label{d4_1}\frac{d[O]}{dt}=\alpha[T](1−[O])−\beta[O]\end{eqnarray}
-We can now describe the synaptic conductance $g_{syn}(t)=g_{max}[O](t)$, in terms of the maximal conductance $g_{max}$ and a gating variable $[O]$, where $[O](𝑡)$ is the fraction of open synaptic channels. $\alpha$ is the binding constant, $\beta$ the unbinding constant and $(1−[O])$ the fraction of closed channels where the neurotransmitter can bind. The functional form of T depends on the type and nature of the synapse.
+We can now describe the synaptic conductance $g_{syn}(t)=g_{max}[O](t)$, in terms of the maximal conductance $g_{max}$ and a gating variable $[O]$, where $[O](𝑡)$ is the fraction of open synaptic channels. $\alpha$ is the binding constant, $\beta$ the unbinding constant and $(1−[O])$ the fraction of closed channels where the neurotransmitter can bind. The functional form of T depends on the nature of the synapse.
 For cholinergic excitatory synapses, $[T]$ is given by,
 \begin{eqnarray}
 \label{d4_2}
 [T]_{ach} = A\ \Theta(t_{max}+t_{fire}+t_{delay}-t)\ \Theta(t-t_{fire}-t_{delay})
 \end{eqnarray}
-where, $\Theta (x)$ is the Heaveside step function, $t_{fire}$ is the time of the last presynaptic spike, $t_{delay}$ is the time delay from the time of the last spike to its effect on the postsynaptic neuron and $t_{max}$ is the duration after the spike during which the transmitter remains in the synaptic cleft.
+where, $\Theta (x)$ is the Heaviside step function, $t_{fire}$ is the time of the last presynaptic spike, $t_{delay}$ is the time delay from the time of the last spike to its effect on the postsynaptic neuron and $t_{max}$ is the duration after the spike during which the transmitter remains in the synaptic cleft.
 For Fast GABAergic inhibitory synapses, we used the following equation,
 \begin{eqnarray}\label{d4_3}[T]_{gaba} = \frac{1}{1+e^{-\frac{V(t-t_{fire}-t_{delay})-V_0}{\sigma}}}\end{eqnarray}
 
 Note that in order to solve the equation~\ref{d4_1}, we need to determine the time when the presynaptic neuron fired ($t_{fire}$). To account for these synaptic interactions between neurons we need to modify the RK4 integrator developed to simulate multiple independent Hodgkin-Huxley neurons. 
 
 \subsection*{Redesigning the Generalized TensorFlow Integrator}
-In this section we modify the integrator that we coded on Day 2 to account for interactions between neurons. This will require an additional variable that stores the time elapsed from the last presynaptic spike to calculate the  equations~\ref{d4_2},~\ref{d4_3}. In the modified code we will use the TensorFlow function \texttt{tf.where()} to efficiently assign the indices of neurons that have spiked and those that have not at each time point. To understand the usage and function of \texttt{tf.where()}, consider the following example. Say, you have a array \texttt{x} of 10 random numbers between 0 and 1. You want the output of the code to be another array of the same size as \texttt{x} such that the elements of the array are either -10 or 10 depending on whether the corresponding element in \texttt{x} is less or greater than 0.5. The function  \texttt{tf.where(cond,a,b)} outputs an array with elements from \texttt{a} if the condition \texttt{cond} is \texttt{True} and from \texttt{b} if \texttt{cond} is \texttt{False}. See the example code below.
+In this section we modify the integrator that we coded on Day 2 to account for interactions between neurons. This will require an additional variable that stores the time elapsed from the last presynaptic spike to calculate the  equations~\ref{d4_2},~\ref{d4_3}. In the modified code we will use the TensorFlow function \texttt{tf.where()} to efficiently assign the indices of neurons that have spiked and those that have not spiked at each time point. To understand the usage and function of \texttt{tf.where()}, consider the following example. Say, you have a array \texttt{x} of 10 random numbers between 0 and 1. You want the output of the code to be another array of the same size as \texttt{x} such that the elements of the array are either -10 or 10 depending on whether the corresponding element in \texttt{x} is less or greater than 0.5. The function  \texttt{tf.where(cond,a,b)} outputs an array with elements from \texttt{a} if the condition \texttt{cond} is \texttt{True} and from \texttt{b} if \texttt{cond} is \texttt{False}. See the example code below.
 
 \begin{minted}[linenos]{python}
 # create the Tensor with the random variables
@@ -788,8 +782,8 @@ In order to determine whether a particular neuron fired, we introduce a new vari
 
 We modify the code as follows:
 \begin{enumerate}
-\item The Integrator class that we defined earlier now requires two more properties, namely, the number of neurons (\texttt{n}) and firing threshold (\texttt{F\_b}) of each of these neurons. We provide these inputs as arguments to the Integrator class.
-\item The state vector will now have an additional \texttt{n} variables representing the firing times. These will not be updated by the step function (\texttt{\_step\_func}).
+\item The Integrator class that we defined earlier now requires two more properties as input, namely, the number of neurons (\texttt{n}) and firing threshold (\texttt{F\_b}) of each of these neurons. We provide these inputs as arguments to the Integrator class.
+\item The state vector will now have an additional set of \texttt{n} variables representing the firing times. These will not be updated by the step function (\texttt{\_step\_func}).
 \item Inside the Integrator class, we have access to the values of the state variable and the change in the state variable since the last iteration. We use this to check if the voltages have crossed the firing threshold. The convention followed in this code is, the first \texttt{n} elements of the state vector are the membrane voltages while the last \texttt{n} elements are the time from the last spike for each of the neurons.
 \item The differential update function ie. step\_func takes except the last \texttt{n} values of the state variable and updates according to the differential equations specified in \texttt{func}. The last \texttt{n} variables are updated separately in \texttt{scan\_func}. It checks if any neuron has crossed its firing threshold and updates the variable \texttt{fire\_t} of the appropriate neurons with the current time.
 \end{enumerate}
@@ -856,7 +850,7 @@ I_{ach/gaba}(t)=g_{max}[O]_{ach/gaba}(V−E_{ach/gaba})
 
 \subsection*{Synaptic Memory Management}
 
-In a network with $n$ neurons, there are at most $n^2$ synapses of each type. The actual number may be much smaller. The dynamics of each synapse is given by the equation~\ref{eq:synO}. To illustrate the details of the implementation, consider the following three neuron network. Let $X_1$ be an excitatory neuron that forms a cholinergic synapse, $X_2$ an inhibitory neuron that extends a GABAergic synapse onto $X_3$. The network has the form: $X_1\rightarrow X_2\rightarrow X_3$. In defining the connectivity matrix for each synapse type, we set a convention where the presynaptic neurons are indexed by the column number, and the postsynaptic neurons by the row number. Let $X_1$, $X_2$, $X_3$ be indexed as 0, 1 and 2 respectively. The excitatory connectivity matrix takes the form
+In a network with $n$ neurons, there are at most $n^2$ synapses of each type. The actual number may be much smaller. The dynamics of each synapse is given by the equation(\ref{eq:synO}). To illustrate the details of the implementation, consider the following three neuron network. Let $X_1$ be an excitatory neuron that forms a cholinergic synapse, $X_2$ an inhibitory neuron that extends a GABAergic synapse onto $X_3$. The network has the form: $X_1\rightarrow X_2\rightarrow X_3$. In defining the connectivity matrix for each synapse type, we set a convention where the presynaptic neurons are indexed by the column number, and the postsynaptic neurons by the row number. Let $X_1$, $X_2$, $X_3$ be indexed as 0, 1 and 2 respectively. The excitatory connectivity matrix takes the form
 
 \begin{eqnarray}
 Ach_{n\times n}=
@@ -957,9 +951,9 @@ where $\diamond$ is columnwise multiplication and $\odot$ is elementwise multipl
 \item We then identify the non-zero indices of $C$. For this we use the Boolean mask function to choose the correct $k$ indices from the range $1$ to $n^2$ and store in the variable \texttt{ind}.
 \item Using the \texttt{scatter\_update} function of TensorFlow, we fill the correct indices of the variable \texttt{o\_} that we created with the values of open fraction from the $[O]$ vector.
 \item We now reshape the vector as a $n\times n$ matrix. Python stores matrices as an array of arrays, with each row as an inner array. To perform columnwise multiplication, we first tranpose the matrix, so that each column is the inner array, perform element wise multiplication with each inner array, and transpose the matrix again.
-\item Finally using texttt{reduce\_sum}, we sum over the columns to compute the $I_{syn}$ vector.
+\item Finally using \texttt{reduce\_sum}, we sum over the columns to compute the $I_{syn}$ vector.
 \end{enumerate}
-This process of converting from a vector to a matrix form and back to a vector form makes the computation more efficient than a simple loop through all the indices. 
+This process of converting from a vector to a matrix and back to a vector makes the computation more efficient than a simple loop through all the indices. 
 \begin{minted}[linenos]{python}
 ## Acetylcholine Synaptic Current ##
 def I_ach(o,V):
@@ -982,14 +976,16 @@ def I_gaba(o,V):
 To update the synapses we first calculate the values of the presynaptic activation function $[T]$ for both types of synapses. This function determines whether a neuron fired or not and is calculated for each neuron. The values of $[T]$ are then sent to the correct synapses in the form of a $k\times 1$ vector. Recall:
 
 \begin{eqnarray}[T]_{ach} = A\ \Theta(t_{max}+t_{fire}+t_{delay}-t)\ \Theta(t-t_{fire}-t_{delay})\label{eq:Tach}\end{eqnarray}
-\begin{eqnarray}[T]_{gaba} = \frac{1}{1+e^{-\frac{V(t)-V_0}{\sigma}}}{eq:Tgaba}\end{eqnarray}
+\begin{eqnarray}[T]_{gaba} = \frac{1}{1+e^{-\frac{V(t)-V_0}{\sigma}}}
+\label{eq:Tgaba}
+\end{eqnarray}
 
 Once we calculate the values of [T]-vector for both types of synapse, we need to redirect them to the correct synapses in a sparse $k\times1$ vector form. 
 
 \subsubsection*{Steps to calculate $[T]$}
 \begin{enumerate}
-\item  To calculate $[T]_{ach}$, we use a Boolean logical \texttt{\_and} function to check if the current timepoint t is greater than the last firing time (\texttt{fire\_t}) + delay (\texttt{t\_delay}) and less than last firing time (\texttt{fire\_t}) + delay (\texttt{t\_delay}) + activation length (\texttt{t\_max}) for each neuron. The result of these Boolean operations to used to determine the product of Heaviside functions in equation~\ref{eq:Tach}. For $[T]_{gaba}$, we simply used $\vec{V}$ to determine T.
-\item To determine the $[T]$ vector, we follow a two step process. First we multiply each row of the connectivity matrix $\mathbf{C}$ with the respective $[T]$ vector to get a activation matrix $\mathbf{T}$, and then we just flatten $\mathbf{T}$ and $\mathbf{C}$ and, using tf.boolean\_mask, remove all the zeros from $\mathbf{T}$ to get a $k\times1$ vector which now stores the presynaptic activation for each of the synapses where $k=n_{gaba}$ or $n_{ach}$.
+\item  To calculate $[T]_{ach}$, we use a Boolean logical \texttt{\_and} function to check if the current timepoint t is greater than the last firing time (\texttt{fire\_t}) + delay (\texttt{t\_delay}) and less than last firing time (\texttt{fire\_t}) + delay (\texttt{t\_delay}) + activation length (\texttt{t\_max}) for each neuron. The result of these Boolean operations to used to determine the product of Heaviside functions in equation(\ref{eq:Tach}). For $[T]_{gaba}$, we simply used $\vec{V}$ to determine T.
+\item To determine the $[T]$ vector, we follow a two step process. First we multiply each row of the connectivity matrix $\mathbf{C}$ with the respective $[T]$ vector to get a activation matrix $\mathbf{T}$. We then flatten $\mathbf{T}$ and $\mathbf{C}$ and, using \texttt{tf.boolean\_mask}, remove all the zeros from $\mathbf{T}$ to get a $k\times1$ vector which now stores the presynaptic activation for each of the synapses where $k=n_{gaba}$ or $n_{ach}$.
 \item Calculate the differential change in the open fractions (OF) using the $k\times1$ vector.
 \end{enumerate}
 
@@ -1032,7 +1028,7 @@ def dXdt(X, t):
     return out
 \end{minted}
 
-\subsection*{Defining the Gating Variable Updation Function and the Initial Conditions}
+\subsection*{Updating the gating variable and initial conditions}
 
 As before, we again define functions that return the values of $\tau_m$, $\tau_h$, $\tau_n$, $m_0$, $h_0$, $n_0$, set parameters and initial conditions. 
 
@@ -1049,7 +1045,7 @@ y0 = tf.constant([-71]*n_n+[0,0,0]*n_n+[0]*n_ach+[0]*n_gaba+
 
 \subsection*{Current input to the network}
 
-Here we stimulate the neuron $X_{1}$ with 100ms long current injections with progressively increasing amplitude. We introduce a 100ms gap between successive current inputs.
+Here we stimulate the neuron $X_{1}$ with 100ms long current injections that progressively increase in amplitude. We introduce a 100ms gap between successive current inputs.
 
 \begin{minted}[linenos]{python}
 current_input= np.zeros((n_n,t.shape[0]))
@@ -1073,36 +1069,30 @@ The output of the network is shown in Fig.
 
 \end{center}
 
-\section*{Day 5: Optimal Mind Control}
-Now that we can simulate a model of a network of conductance-based neurons, we discuss the limitations of our algorithm and try to find solutions to the problems.
+\section*{Day 5: Memory management}
+Now that we can simulate a model network of conductance-based neurons, we discuss the limitations of our programs and our attempts to work around these issues.
 
-\subsection*{Memory Management}
+\subsection*{Limits on memory}
 
-This TensorFlow implementation allows us to make our simulation code not only easier to read but also makes it highly parallizable and scalable across a variety of computational devices. But there are some major limitations to our system. The biggest of these issues is that despite making the simulation faster, this implementation makes it very memory intensive.
-
-The iterators in TensorFlow do not follow the normal process of Memory Allocation and Garbage Collection. Since, TensorFlow is designed to work on sophisticated hardware like GPUs, TPUs and distributed platforms, the memory allocation is done during TensorFlow session adaptively, but the memory is NOT cleared until the python kernel has stopped execution. 
-
-The memory used increases linearly with time as the state matrix is computed recursively by the Scan function. The maximum memory used by the computational graph is 2 times the total state matrix size at the point when the computation finishes and copies the final data into the memory. Larger and more complicated the network and longer the simulation, larger the matrix and then, each run is limited by the total available memory. As we increase the number of neurons (n) and scale the degree distributions, the size of the memory used grows ~$O(n^2)$ as the number of differential equations grows as a square of the number of neurons. Similarly, as we increase the length of the simulation(L), the memory used grows $O(L)$. Which is why for a system with a limited memory of K bytes, The length of a given simulation (L timesteps) of a given network (N differential equations) with 64-bit floating-point precision will follow: 
+Using Python and TensorFlow allowed us to write code that is readable, parallizable and scalable across a variety of computational devices. However, our implementation is very memory intensive. The iterators in TensorFlow do not follow the normal process of memory allocation and garbage collection. Since, TensorFlow is designed to work on diverse hardware like GPUs, TPUs and distributed platforms, memory allocation is done adaptively during the TensorFlow session and NOT cleared until the Python kernel has stopped execution. The memory used increases linearly with time as the state matrix is computed recursively by the \texttt{tf.scan} function. The maximum memory used by the computational graph is 2 times the total state matrix size at the point when the computation finishes and copies the final data into the memory. The larger the network and longer the simulation, the larger the solution matrix. Each run is limited by the total available memory. For a system with a limited memory of K bytes, The length of a given simulation (L timesteps) of a given network (N differential equations) with 64-bit floating-point precision will follow: 
 
 \begin{eqnarray}2\times64\times L\times N=K\end{eqnarray}
 
-That is, for any given network, our maximum simulation length is limited. One way to improve our maximum length is to divide the simulation into smaller batches. There will be a small queuing time between batches, which will slow down our code by a small amount but we will be able to simulate longer times. Thus, if we split the simulation into K sequential batches, the maximum memory for the simulation becomes $(1+\frac{1}{K})$ times the total matrix size. Thus the memory relation becomes:  
+That is, for any given network, our maximum simulation length is limited. One way to improve our maximum length is to divide the simulation into smaller batches. There will be a small queuing time between batches, which will slow down our code but will allow longer simulation times. Thus, if we split the simulation into K sequential batches, the maximum memory for the simulation becomes $(1+\frac{1}{K})$ times the total matrix size. Thus the memory relation becomes:  
 
 \begin{eqnarray}\Big(1+\frac{1}{K}\Big)\times64\times L\times N=K\end{eqnarray}
 
-This way, we can maximize the length of out simulation that we can run in a single python kernel.
-
-Let us implement this batch system for our 3 neuron feed-forward model.
+This way, we can maximize the length of out simulation that we can run in a single Python kernel.
 
 \subsection*{Implementing the Model}
 
-To improve out readability and make our code more modular we seperate the integrator into a independent import module. Take the integrator code that we developed in the last day and place it in a file called "tf\_integrator.py". Make sure the file is present in the same directory as the implementation of the model. 
+To improve the readability of our code we separate the integrator into a independent import module. The integrator code was placed in a file called \texttt{tf\_integrator.py}. The file must be present in the same directory as the implementation of the model. 
 
 Note: If you are using Jupyter Notebook, remember to remove the \%matplotlib inline command as it is specific to jupyter.
 
 \subsubsection*{Importing tf\_integrator and other requirements}
 
-Once the Integrator is saved in tf\_integrator.py in the same directory as the Notebook, we can start importing the essentials including the integrator.
+Once the integrator, \texttt{tf\_integrator.py}, is saved in the same directory as the Notebook, we can start importing required libraries and the integrator.
 
 \begin{minted}[linenos]{python}
 import tensorflow as tf
@@ -1112,13 +1102,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 \end{minted}
 
-For implementing a Batch system, we do not need to change how we construct our model only how we execute it.
+To simulate the code in batches we do not need to change how we construct our model only how we execute it.
 
-\subsubsection*{Splitting Time Series into independent batches and Run Each Batch Sequentially}
+\subsubsection*{Splitting time series into independent batches and run each batch sequentially}
 
-Since we will be dividing the computation into batches, we have to split the time array into batches which will be passed to the each successive call to the integrator. For each new call, the last state vector of the last call will be the new initial condition. 
-
-In np.array\_split(), the split edges are present in only one array and since our initial vector to successive calls is corresponding to the last output our first element in the later time array should be the last element of the previous output series. Thus, we append the last time to the beginning of the current time array batch.
+Since we will be dividing the computation into batches, we have to split the time array such that for each new call, the final state vector of the last batch will be the initial condition for the current batch. The function \texttt{np.array\_split()} splits the array into non-overlapping vectors. Therefore, we append the last time of the previous batch to the beginning of the current time array batch.
 
 \begin{minted}[linenos]{python}
 # Define the Number of Batches
@@ -1150,9 +1138,9 @@ for n,i in enumerate(t_batch):
     print("Finished")
 \end{minted}
 
-\subsubsection*{Putting the Output Together}
+\subsubsection*{Putting the output together}
 
-The output from our batch implementation is a set of binary files that store subparts of our total simulation. To get the overall output we have to stitch them back together.
+The output from our batch implementation is a set of binary files that store parts of our total simulation. To get the overall output we have to stitch them back together.
 
 \begin{minted}[linenos]{python}
 overall_state = []
@@ -1168,19 +1156,14 @@ for n,i in enumerate(["part_"+str(n+1)+".npy" for n in range(n_batch)]):
 overall_state = np.concatenate(overall_state)
 \end{minted}
 
-By this method, we have maximized the usage of our available memory but we can go further and develop a method to allow indefinitely long simulation. The issue behind this entire algorithm is that the memory is not cleared until the python kernel finishes. One way to overcome this is to save the parameters of the model (such as connectivity matrix) and the state vector in a file, and start a new python kernel from a python script to compute successive batches. This way after each large batch, the memory gets cleaned. By combining the previous batch implementation and this system, we can maximize our computability.
+By this method, we have maximized the usage of our available memory. We can extend this further and develop a method to allow longer simulations. Since the memory is not cleared until the Python kernel finishes we save the parameters of the model (such as connectivity matrix) and the state vector in a file, and start a new Python kernel from a Python script to compute successive batches. This way after each large batch, the memory gets cleaned. By combining the previous batch implementation and this system, we can maximize our ability to run memory intensive simulations.
 
 \subsection*{Implementing a Runner and a Caller}
 
-Firstly, we have to create an implementation of the model that takes in previous input as current parameters. Thus, we create a file, which we call "run.py" that takes an argument ie. the current batch number. The implementation for "run.py" is mostly same as the above model but there is a small difference.
-
-When the batch number is 0, we initialize all variable parameters and save them, but otherwise we use the saved values. The parameters we save include: Acetylcholine Matrix, GABAa Matrix and Final/Initial State Vector. It will also save the files with both batch number and sub-batch number listed.
-
-The time series will be created and split initially by the caller, which we call "call.py", and stored in a file. Each execution of the Runner will extract its relevant time series and compute on it.
+First, we have to create an implementation of the model that takes in previous inputs as current parameters. Thus, we create a file, which we call \texttt{run.py} that takes an argument - the current batch number. The implementation for \texttt{run.py} is nearly the same as the previous code but with one minor difference. When the batch number is 0, we initialize all variable parameters and save them, otherwise we use the saved values. The parameters we save include the acetylcholine matrix, the GABA$_{A}$ matrix and the final/initial state vector. \texttt{run.py} also saves the files with both batch number and sub-batch number listed. 
 
 \subsubsection*{Implementing the Caller code}
-
-The caller will create the time series, split it and use python subprocess module to call "run.py" with appropriate arguments. The code for "call.py" is given below.
+The caller function, \texttt{call.py} creates the time array, splits it into batches and uses the Python subprocess module to call \texttt{run.py} with appropriate arguments. The code for \texttt{call.py} is given below.
 
 \begin{minted}[linenos]{python}
 from subprocess import call
@@ -1202,7 +1185,7 @@ print("Simulation Completed.")
 
 \subsubsection*{Implementing the Runner code}
 
-"run.py" is essentially identical to the batch-implemented model we developed earlier with the changes described below:
+\texttt{run.py} is essentially identical to the batch implementation we developed earlier with the changes described below.
 
 \begin{minted}[linenos]{python}
 # Additional Imports #
@@ -1250,7 +1233,7 @@ np.save("batch"+str(int(sys.argv[1])+1)+"_part_"+str(n+1),state)
 \end{minted}
 
 \subsubsection*{Combining all Data}
-Just like we merged all the batches, we merge all the sub-batches and batches.
+Just as we merged all the batches, we merge all the sub-batches and batches.
 
 \begin{minted}[linenos]{python}
 overall_state = []
@@ -1267,27 +1250,13 @@ for n,i in enumerate(["batch"+str(x+1) for x in range(n_splits)]):
 overall_state = np.concatenate(overall_state)
 \end{minted}
 
-\subsection*{Other Limitations}
-
-With the runner-caller implementation, we have solved the issue of memory limitation. But there are some issues we havent solved yet.
-
-1. \textbf{Delay Dependent Activity:} If the implementation of an model requires a delay differential equation (DDEs) that accesses the value of the parameters at a earlier time, we cannot use this programming paradigm directly as it has only, at most, one timestep memory. This is also a limitation of using the scan function. Exploring alternatives to tf.scan() and other techniques of solving DDEs is an option.
-
-2. \textbf{Optimal Distributed Computing:} To maximize the utility of distributed systems, the algorithm needs to be capable of splitting the computation into tasks that can be run parallely (simultaneously) in different computational units. Since we are working with numerical integration, the results of the last step need to be known to perform the next computation. This, in a way limits out ability to use distributed computing. TensorFlow automatically tries to utilize all available resources efficiently but it may not be the optimal usage. One way to enforce distribution is to manually distribute parts of the computational graph to specialized computing units. For example, the actual session can be forced to be executed on the server with maximum memory but the sub-computations such as the RK4 integration steps can be distributed to servers with more GPUs.
-
-\section*{Discussion}
-
 \section*{Conclusion}
-
+The TensorFlow ecosystem is a rapidly evolving. This will imply that new functions that expand the use of TensorFlow. We anticipate that the code described here will serve as a starting point to simulate ODEs and could potentially evolve to include more sophisticated and faster integration algorithms and methods to manage limitations imposed by memory. 
 
 \section*{Supporting information}
-
-% Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
-\paragraph*{S1 Fig.}
-\label{S1_Fig}
-{\bf Bold the title sentence.} Add descriptive text after the title of the item (optional).
-
+The code in this tutorial is implemented as a series of Python notebooks that can be downloaded from the following Github repository \texttt{https://github.com/technosap/PSST}. 
 \section*{Acknowledgments}
+SSM received a ???? fellowship and support from IISER Pune. CA was funded by DBT–Wellcome India Alliance through an Intermediate fellowship IA/I/11/2500290 and IISER Pune. We thank members of the Assisi and Nadkarni labs at IISER Pune and several students who tested the code. 
 
 
 \nolinenumbers
