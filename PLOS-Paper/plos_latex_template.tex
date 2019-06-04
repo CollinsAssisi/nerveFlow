@@ -217,19 +217,19 @@ individual neurons and synapses. As one scales up the size of the simulation it 
 \section*{Motivation}
 Information processing in the nervous system spans a number of spatial and temporal scales. Millisecond fluctuations in ionic concentration at a synapse can cascade into long term (hours to days) changes in the behavior of the organism. Capturing the temporal scales and the details of the dynamics of the brain is a colossal computational endeavour. The dynamics of single and small networks of neurons can easily be simulated on a desktop computer with high level, readable, programing languages like Python. However, large networks of conductance based neurons are often simulated on clusters of CPUs. More recently, graphical processing units (GPUs) have become increasingly available due to lower (though still prohibitive) costs and from cloud services like Google Cloud and Amazon AWS among others. Writing code for each of these platforms is non trivial and requires a considerable investment of time to master different software tools. For example, implementing parallelism in multiple core shared memory architectures is often achieved using Open Multi-Processing (OpenMP) with C or C++. Message Passing Interface (MPI) libraries are used to implement code that computes over high performance computing clusters. Compute Unified Device Architecture (CUDA) allows users to run programs on NVIDIA's GPUs. However, code written for one platform cannot be used on other platforms. This poses a high barrier of entry for Neuroscientists conversant with a high-level programing language, attempting to test simulations on different platforms. 
 
-This is where TensorFlow, an open source platform for machine learning~\cite{}, comes in handy. TensorFlow is highly scalable. Code written using TensorFlow functions can work seamlessly on single cores, multi-core shared memory processors, high-performance computer clusters, GPUs and Tensor processing units (TPUs - a propreitary chip designed by Google to work with TensorFlow). We found (as others have (ref??)), that TensorFlow functions can be used to implement numerical methods to solve ODEs. Doing so gave us a significant speed-up even on a single desktop with a multicore processor compared to similar Python code that did not use TensorFlow functions and operated on a single core(Figure~\ref{fig:comparison}). The code itself was highly readable and could be debugged with ease. Familiarity with the Python programming language and a brief introduction to some TensorFlow functions proved sufficient to write the code. Python is a an extremely popular programming language that used across number of disciplines and has found a broad user base among Biologists(ref PLOS paper and scientific computing book). We found that introducing a few TensorFlow functions in Python, an easy addition to a familiar language, can bring readers to a point where they can simulate large networks of neurons in a platform independent manner. Further, by piggybacking on TensorFlow we will also be able to take advantage of an active TensorFlow developer community in addition to a wide range of Python libraries that are already available. 
+This is where TensorFlow, an open source platform for machine learning~\cite{tensorflow2015-whitepaper}, comes in handy. TensorFlow is highly scalable. Code written using TensorFlow functions can work seamlessly on single cores, multi-core shared memory processors, high-performance computer clusters, GPUs and Tensor processing units (TPUs - a propreitary chip designed by Google to work with TensorFlow). We found (as others have~\cite{tensorflow-api-docs,tfcookbook}, that TensorFlow functions can be used to implement numerical methods to solve ODEs. Doing so gave us a significant speed-up even on a single desktop with a multicore processor compared to similar Python code that did not use TensorFlow functions and operated on a single core(Figure~\ref{fig:comparison}). The code itself was highly readable and could be debugged with ease. Familiarity with the Python programming language and a brief introduction to some TensorFlow functions proved sufficient to write the code. Python is a an extremely popular programming language that used across number of disciplines and has found a broad user base among Biologists \cite{Ekmekci2016,Bassi2007,primer}. We found that introducing a few TensorFlow functions in Python, an easy addition to a familiar language, can bring readers to a point where they can simulate large networks of neurons in a platform independent manner. Further, by piggybacking on TensorFlow we will also be able to take advantage of an active TensorFlow developer community in addition to a wide range of Python libraries that are already available. 
 \begin{figure}
 \includegraphics[scale=0.7]{Figures/Bench.pdf} 
 \caption{Comparison of Python and Tensorflow on an 8 core, 2.1GHz desktop with 2 Intel Xeon E5-2620 processors}
 \label{fig:comparison}
 \end{figure}
 
-These tutorials were written to address the needs of a group of undergraduate students in our institute. These students came from diverse backgrounds and had a basic introduction to Python during their first semester. They were interested in working on problems in Computational Neuroscience. Our goal was to introduce them to some of the numerical tools and mathematical models in Neuroscience while also allowing them to tinker with advanced projects that required writing code that ran on distributed systems. We were careful to keep the innards of the code visible \textemdash the form of the integrator, the specification of the differential equations and the ability to modify the code to suit their needs was particularly important. Towards the end of the tutorial, that many students managed to devour within a day or two, they were in a position to write codes simulating networks of neurons in the antennal lobe (the insect equivalent of the olfactory bulb in mammals), firing rate models of grid cells, detailed networks of stellate cells and inhibitory interneurons and networks with plastic synapses. 
+These tutorials were written to address the needs of a group of undergraduate students in our institute. These students came from diverse backgrounds and had a basic introduction to Python during their first semester. They were interested in working on problems in Computational Neuroscience. Our goal was to introduce them to some of the numerical tools and mathematical models in Neuroscience while also allowing them to tinker with advanced projects that required writing code that ran on distributed systems. We were careful to keep the innards of the code visible \textemdash the form of the integrator, the specification of the differential equations and the ability to modify the code to suit their needs was particularly important. Towards the end of the tutorial, that many students managed to devour within a day or two, they were in a position to write codes simulating networks of neurons in the antennal lobe  \cite{Bazhenov2001}  (the insect equivalent of the olfactory bulb in mammals), firing rate models of grid cells~\cite{Burak2009}, detailed networks of stellate cells and inhibitory interneurons~\cite{Neru2019} and networks with plastic synapses~\cite{Bazhenov2005}. 
 
 %~\cite{bib1}
 
 \section*{How to use this Tutorial}
-A reader familiar with Python will find this tutorial accessible. We use a number of Numpy (ref Numpy docs) and Matplotlib (ref Matplotlib docs) functions to simulate and display figures. These libraries are well documented with excellent introductory guides. During Day 1 of this tutorial we introduce numerical integration using Python without using any TensorFlow functions. On Day 2 we use TensorFlow functions to implement the integrator. Day 5 talks about memory management in TensorFlow. On Days 3 and 4 we use the code developed on Days 1 and 2 to simulate networks of conductance based neurons. Readers who are interested in solving differential equations in other domains will find the tutorial on Days 1, 2 and 5 self-contained.  Our simulations were run on a Linux desktop running Ubuntu xx.xx and on Google Cloud. We recommend that readers install Python 3.6 or above, Jupyter Notebook, Numpy Python package, Matplotlib Python package, and TensorFlow 1.13 or above using the Anaconda distribution of Python 3. The tutorials are linked in the supplementary material as Python notebooks (.ipynb files) that can be accessed using Jupyter and as .html files that can be read using any browser.
+A reader familiar with Python will find this tutorial accessible. We use a number of Numpy (ref Numpy docs) and Matplotlib (ref Matplotlib docs) functions to simulate and display figures. These libraries are well documented with excellent introductory guides. During Day 1 of this tutorial we introduce numerical integration using Python without using any TensorFlow functions. On Day 2 we use TensorFlow functions to implement the integrator. Day 5 talks about memory management in TensorFlow. On Days 3 and 4 we use the code developed on Days 1 and 2 to simulate networks of conductance based neurons. Readers who are interested in solving differential equations in other domains will find the tutorial on Days 1, 2 and 5 self-contained.  Our simulations were run on a Linux desktop running Ubuntu xx.xx and on Google Cloud. We recommend that readers install Python 3.6 or above, Jupyter Notebook, Numpy Python package~\cite{numpy}, Matplotlib Python package~\cite{matplotlib}, and TensorFlow 1.13 or above using the Anaconda distribution of Python 3. The tutorials are linked in the supplementary material as Python notebooks (.ipynb files) that can be accessed using Jupyter and as .html files that can be read using any browser.
 % For figure citations, please use "Fig" instead of "Figure". Fig~\ref{fig1}
 
 % Place figure captions after the first paragraph in which they are cited.
@@ -245,7 +245,7 @@ In this tutorial we are interested in solving ordinary differential equations (O
 \frac{dx}{dt} = f(x, t)
 \label{eq:ode}
 \end{equation}
-where, $x$ is an $N-$dimensional vector and $t$ typically stands for time. The function $f(x,t)$ may be a nonlinear function of $x$ that explicitly depends on $t$. In addition to specifying the form of the differential equation, one must also specify the value of $x$ at a particular time point. Say, $x=x_{0}$ at $t = t_0$. It is often not possible to derive a closed form solution for the equation(\ref{eq:ode}). Therefore numerical methods to solve these equations are of great importance. One example of ODEs at the core of our tutorial are the Hodgkin-Huxley equations (ref) describing the dynamics of action potential generation and propagation in the giant axon of the squid. Alan Hodgkin and Andrew Huxley arrived at these equations after a series of clever experiments that tested the limits of experimental technology available at the time. It also tested the limits of computational tools available (ref). The form of the differential equations they derived contained nonlinearities that made it analytically intractable. In order to compute action potentials, Huxley numerically intergrated the equations using a hand operated Bunsviga mechanical calculator. The calculation took nearly three weeks to complete (ref). They used a numerical method due to Hartree (ref 1932) to integrate the differential equations. Each iteration that calculated the value of the solution at subsequent time points consisted of 9 steps. In calculating the solution over time, they also varied the step size such that dynamics occurring over faster time scales (such as the rising phase of the action potential) were calculated with time step sizes of $0.1-0.2$ms while slower dynamics (such as the small highly damped oscillation following a spike) was calculated with time steps that were an order of magnitude higher ($1$ms).
+where, $x$ is an $N-$dimensional vector and $t$ typically stands for time. The function $f(x,t)$ may be a nonlinear function of $x$ that explicitly depends on $t$. In addition to specifying the form of the differential equation, one must also specify the value of $x$ at a particular time point. Say, $x=x_{0}$ at $t = t_0$. It is often not possible to derive a closed form solution for the equation(\ref{eq:ode}). Therefore numerical methods to solve these equations are of great importance. One example of ODEs at the core of our tutorial are the Hodgkin-Huxley equations describing the dynamics of action potential generation and propagation in the giant axon of the squid~\cite{Huxley1952}. Alan Hodgkin and Andrew Huxley arrived at these equations after a series of clever experiments that tested the limits of experimental technology available at the time. It also tested the limits of computational tools available. The form of the differential equations they derived contained nonlinearities that made it analytically intractable. In order to compute action potentials, Huxley numerically intergrated the equations using a hand operated Bunsviga mechanical calculator. The calculation took nearly three weeks to complete~\cite{Hodgkin1976}. They used a numerical method due to (see numerical methods section in \cite{Hodgkin1976}) to integrate the differential equations. Each iteration that calculated the value of the solution at subsequent time points consisted of 9 steps. In calculating the solution over time, they also varied the step size such that dynamics occurring over faster time scales (such as the rising phase of the action potential) were calculated with time step sizes of $0.1-0.2$ms while slower dynamics (such as the small highly damped oscillation following a spike) was calculated with time steps that were an order of magnitude higher ($1$ms).
 
 In this tutorial, we illustrate two numerical methods to iteratively compute each time step of the solution. The first is a simple one-step method known as the Euler's method of integration. The second is another popular method, the Runge-Kutta method of order 4 (abberviated as RK4) that is more accurrate than the Euler's method, but requires additional computations to calculate the value of the solution at each time step. 
 
@@ -1260,9 +1260,9 @@ SSM received a ???? fellowship and support from IISER Pune. CA was funded by DBT
 
 
 \nolinenumbers
-
+\bibliography{nerveFlow}
 % Either type in your references using
-% \begin{thebibliography}{}
+
 % \bibitem{}
 % Text
 % \end{thebibliography}
@@ -1274,27 +1274,27 @@ SSM received a ???? fellowship and support from IISER Pune. CA was funded by DBT
 % here. See http://journals.plos.org/plosone/s/latex for 
 % step-by-step instructions.
 % 
-\begin{thebibliography}{10}
-
-\bibitem{bib1}
-Conant GC, Wolfe KH.
-\newblock {{T}urning a hobby into a job: how duplicated genes find new
-  functions}.
-\newblock Nat Rev Genet. 2008 Dec;9(12):938--950.
-
-\bibitem{bib2}
-Ohno S.
-\newblock Evolution by gene duplication.
-\newblock London: George Alien \& Unwin Ltd. Berlin, Heidelberg and New York:
-  Springer-Verlag.; 1970.
-
-\bibitem{bib3}
-Magwire MM, Bayer F, Webster CL, Cao C, Jiggins FM.
-\newblock {{S}uccessive increases in the resistance of {D}rosophila to viral
-  infection through a transposon insertion followed by a {D}uplication}.
-\newblock PLoS Genet. 2011 Oct;7(10):e1002337.
-
-\end{thebibliography}
+%\begin{thebibliography}{10}
+%
+%\bibitem{bib1}
+%Conant GC, Wolfe KH.
+%\newblock {{T}urning a hobby into a job: how duplicated genes find new
+%  functions}.
+%\newblock Nat Rev Genet. 2008 Dec;9(12):938--950.
+%
+%\bibitem{bib2}
+%Ohno S.
+%\newblock Evolution by gene duplication.
+%\newblock London: George Alien \& Unwin Ltd. Berlin, Heidelberg and New York:
+%  Springer-Verlag.; 1970.
+%
+%\bibitem{bib3}
+%Magwire MM, Bayer F, Webster CL, Cao C, Jiggins FM.
+%\newblock {{S}uccessive increases in the resistance of {D}rosophila to viral
+%  infection through a transposon insertion followed by a {D}uplication}.
+%\newblock PLoS Genet. 2011 Oct;7(10):e1002337.
+%
+%\end{thebibliography}
 
 
 

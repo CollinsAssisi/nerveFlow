@@ -1,0 +1,81 @@
+\begin{thebibliography}{10}
+
+\bibitem{tensorflow2015-whitepaper}
+Abadi M, Agarwal A, Barham P, Brevdo E, Chen Z, Citro C, et~al.. {TensorFlow}:
+  Large-Scale Machine Learning on Heterogeneous Systems; 2015.
+\newblock Available from: \url{https://www.tensorflow.org/}.
+
+\bibitem{tensorflow-api-docs}
+{TensorFlow} API docs;.
+\newblock Available from: \url{www.tensorflow.org/api_docs/python}.
+
+\bibitem{tfcookbook}
+McClure N.
+\newblock 11.
+\newblock In: TensorFlow Machine Learning Cookbook. Packt Publishing; 2018.
+
+\bibitem{Ekmekci2016}
+Ekmekci B, McAnany CE, Mura C.
+\newblock {An Introduction to Programming for Bioscientists: A Python-Based
+  Primer}.
+\newblock PLoS Computational Biology. 2016;12(6):1--43.
+\newblock doi:{10.1371/journal.pcbi.1004867}.
+
+\bibitem{Bassi2007}
+Bassi S.
+\newblock {A Primer on Python for Life Science Researchers}.
+\newblock PLoS Computational Biology. 2007;doi:{10.1371/journal.pcbi.0030199}.
+
+\bibitem{primer}
+Langtangen~Hans P.
+\newblock A Primer on Scientific Programming with Python. vol.~6 of Texts in
+  Computational Science and Engineering.
+\newblock Springer; 2009.
+
+\bibitem{Bazhenov2001}
+Bazhenov M, Stopfer M, Rabinovich M, Huerta R, Abarbanel HD, Sejnowski TJ,
+  et~al.
+\newblock {Model of transient oscillatory synchronization in the locust
+  antennal lobe.}
+\newblock Neuron. 2001;30(2):553--567.
+
+\bibitem{Burak2009}
+Burak Y, Fiete IR.
+\newblock {Accurate path integration in continuous attractor network models of
+  grid cells}.
+\newblock PLoS Computational Biology. 2009;5(2).
+\newblock doi:{10.1371/journal.pcbi.1000291}.
+
+\bibitem{Neru2019}
+Neru A, Assisi C.
+\newblock {Theta oscillations gate the transmission of reliable sequences in
+  the medial entorhinal cortex}.
+\newblock bioRxiv. 2019; p. 545822.
+\newblock doi:{10.1101/545822}.
+
+\bibitem{Bazhenov2005}
+Bazhenov M, Stopfer M, Sejnowski TJ, Laurent G.
+\newblock {Fast odor learning improves reliability of odor responses in the
+  locust antennal lobe.}
+\newblock Neuron. 2005;46(3):483--492.
+
+\bibitem{numpy}
+{NumPy} package for scientific computing;.
+\newblock Available from: \url{https://www.numpy.org/}.
+
+\bibitem{matplotlib}
+{Matplotlib} Python plotting library;.
+\newblock Available from: \url{https://matplotlib.org/}.
+
+\bibitem{Huxley1952}
+Huxley AL, Hodgkin AF.
+\newblock {Quantitative description of nerve current}.
+\newblock Journal of Physiology. 1952;doi:{10.1007/BF02459568}.
+
+\bibitem{Hodgkin1976}
+Hodgkin AL.
+\newblock {Chance and design in electrophysiology: An informal account of
+  certain experiments on nerve carried out between 1934 and 1952}.
+\newblock Journal of Physiology. 1976;263:1--21.
+
+\end{thebibliography}
