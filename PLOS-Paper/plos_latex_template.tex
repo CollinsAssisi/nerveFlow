@@ -137,7 +137,7 @@
 %\doublespacing
 
 % Text layout
-\raggedright
+%\raggedright
 \setlength{\parindent}{0.5cm}
 \textwidth 5.25in 
 \textheight 8.75in
@@ -170,7 +170,7 @@
 \renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
 \fancyheadoffset[L]{2.25in}
 \fancyfootoffset[L]{2.25in}
-\lfoot{\today}
+%\lfoot{\today}
 
 %% Include all macros below
 
@@ -229,7 +229,7 @@ These tutorials were written to address the needs of a group of undergraduate st
 %~\cite{bib1}
 
 \section*{How to use this Tutorial}
-A reader familiar with Python will find this tutorial accessible. We use a number of Numpy (ref Numpy docs) and Matplotlib (ref Matplotlib docs) functions to simulate and display figures. These libraries are well documented with excellent introductory guides. During Day 1 of this tutorial we introduce numerical integration using Python without using any TensorFlow functions. On Day 2 we use TensorFlow functions to implement the integrator. Day 5 talks about memory management in TensorFlow. On Days 3 and 4 we use the code developed on Days 1 and 2 to simulate networks of conductance based neurons. Readers who are interested in solving differential equations in other domains will find the tutorial on Days 1, 2 and 5 self-contained.  Our simulations were run on a Linux desktop running Ubuntu xx.xx and on Google Cloud. We recommend that readers install Python 3.6 or above, Jupyter Notebook, Numpy Python package~\cite{numpy}, Matplotlib Python package~\cite{matplotlib}, and TensorFlow 1.13 or above using the Anaconda distribution of Python 3. The tutorials are linked in the supplementary material as Python notebooks (.ipynb files) that can be accessed using Jupyter and as .html files that can be read using any browser.
+A reader familiar with Python will find this tutorial accessible. We use a number of Numpy (ref Numpy docs) and Matplotlib (ref Matplotlib docs) functions to simulate and display figures. These libraries are well documented with excellent introductory guides. During Day 1 of this tutorial we introduce numerical integration using Python without using any TensorFlow functions. On Day 2 we use TensorFlow functions to implement the integrator. Day 5 talks about memory management in TensorFlow. On Days 3 and 4 we use the code developed on Days 1 and 2 to simulate networks of conductance based neurons. Readers who are interested in solving differential equations in other domains will find the tutorial on Days 1, 2 and 5 self-contained.  Our simulations were run on an 8 core 2.1 GHz Linux desktop with two Intel Xeon E5-2620 processors  and on Google Cloud. We recommend that readers install Python 3.6 or above, Jupyter Notebook, Numpy Python package~\cite{numpy}, Matplotlib Python package~\cite{matplotlib}, and TensorFlow 1.13 or above using the Anaconda distribution of Python 3. The tutorials are linked in the supplementary material as Python notebooks (.ipynb files) that can be accessed using Jupyter and as .html files that can be read using any browser.
 % For figure citations, please use "Fig" instead of "Figure". Fig~\ref{fig1}
 
 % Place figure captions after the first paragraph in which they are cited.
@@ -259,7 +259,7 @@ where $\frac{dx}{dt}=f(x,t)$. The higher order terms $\mathcal{O}(\epsilon^2)$ a
 
 \begin{figure}[H]
 \includegraphics[scale=0.4]{Figures/fig1.pdf} 
-\caption{Euler's method}
+\caption{\textbf{Euler's method} The dashed line shows the solution computed by successive iterations of Euler's method. It diverges from the actual solution as errors accumulate over time. }
 \label{fig:euler}
 \end{figure}
 
@@ -541,7 +541,7 @@ Use the values $\sigma =10$, $\beta =\frac{8}{3}$, $\rho =28$. Simulate these eq
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/fig6_op.pdf} 
-\caption{Example of a simple computational graph}
+\caption{Phase space plot obtained from integrating the Lorenz equations. Solutions associated with neighboring initial conditions diverge from each other in the chaotic regime given by the paramters specified in the exercise.}
 \label{fig:Lorenz}
 \end{center}
 
@@ -556,7 +556,7 @@ The cell membrane, a 5nm thick lipid bilayer, separates the inside from the outs
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.4]{Figures/fig7.pdf} 
-\caption{HH Neuron}
+\caption{Equivalent circuit of the Hodgkin-Huxley neuron model. Adapted from~\cite{Gerstner2014}}
 \label{fig:HH}
 \end{center}
 \end{figure}
@@ -1063,8 +1063,7 @@ The output of the network is shown in Fig.
 \begin{center}
 \begin{figure}
 \includegraphics[scale=0.4]{Figures/fig13.pdf} 
-%\caption{Pulses of current trigger the firing of action potentials with increasing frequency. Neuron $X_1$ crosses its firing threshold first and triggers neuron $X_2$ to fire after a slight delay. Finally, $X_{2}$ hyperpolarizes neuron $X_3$. 
-
+\caption{Pulses of current trigger the firing of action potentials with increasing frequency. Neuron $X_1$ crosses its firing threshold first and triggers neuron $X_2$ to fire after a slight delay. Finally, $X_{2}$ hyperpolarizes neuron $X_3$. }
 \end{figure}
 
 \end{center}
