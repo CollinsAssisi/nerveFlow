@@ -1,0 +1,62 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: biorXivSaptarshiAssisi.aux
+The style file: plos2015.bst
+Database file #1: nerveFlow.bib
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Warning--empty author in tensorflow-api-docs
+Warning--there's a month but no year in tensorflow-api-docs
+Warning--empty pages in tfcookbook
+Warning--empty author in numpy
+Warning--there's a month but no year in numpy
+Warning--empty author in matplotlib
+Warning--there's a month but no year in matplotlib
+Warning--empty author in gerstnerMOOC
+Warning--there's a month but no year in gerstnerMOOC
+Warning--empty author in compneuroMOOC
+Warning--there's a month but no year in compneuroMOOC
+You've used 21 entries,
+            3058 wiz_defined-function locations,
+            758 strings with 8836 characters,
+and the built_in function-call counts, 26676 in all, are:
+= -- 3273
+> -- 178
+< -- 4
++ -- 106
+- -- 43
+* -- 2249
+:= -- 2986
+add.period$ -- 72
+call.type$ -- 21
+change.case$ -- 6
+chr.to.int$ -- 3
+cite$ -- 32
+duplicate$ -- 1808
+empty$ -- 2623
+format.name$ -- 54
+if$ -- 6189
+int.to.chr$ -- 0
+int.to.str$ -- 21
+missing$ -- 143
+newline$ -- 106
+num.names$ -- 16
+pop$ -- 283
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 323
+stack$ -- 0
+substring$ -- 5408
+swap$ -- 346
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 11
+while$ -- 123
+width$ -- 23
+write$ -- 222
+(There were 11 warnings)
