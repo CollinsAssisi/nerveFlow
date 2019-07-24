@@ -1,6 +1,6 @@
 This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: biorXivSaptarshiAssisi.aux
+The top-level auxiliary file: SaptarshiAssisi.aux
 The style file: plos2015.bst
 Database file #1: nerveFlow.bib
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
@@ -20,7 +20,7 @@ Warning--empty author in compneuroMOOC
 Warning--there's a month but no year in compneuroMOOC
 You've used 21 entries,
             3058 wiz_defined-function locations,
-            758 strings with 8836 characters,
+            758 strings with 8822 characters,
 and the built_in function-call counts, 26676 in all, are:
 = -- 3273
 > -- 178
